@@ -1,27 +1,109 @@
-import React, { useState } from 'react';
-
-
-
+import React, { useState , useRef } from 'react';
+import Map from './Map';
 
 export default function ConsultationCreateForm(props){
-
+// all the states
 const [createConsultation, setCreateConsultation] = useState({})
+// for map
+const [destination, setDestination] = useState(null);
+const [location, setLocation] = useState("");
+const autocompleteRef = useRef(null);
+// adding states for image upload
+const [file, setFile] = useState(null);
+const [imageUrl, setImageUrl] = useState('');
+// adding another state for resetting form 
+const [formKey, setFormKey] = useState(0)
+
+
+
+const resetForm = () => {
+  setCreateConsultation({});
+  setFile(null);
+  setDestination(null);
+  // Reset other relevant state variables
+  setFormKey((prevKey) => prevKey + 1);
+};
+
+
+
+const successCallback = (position) => {
+  console.log("coor",position.coords);
+  const newLocation = {
+    latitude:position.coords.latitude,
+    longitude: position.coords.longitude
+  }
+  setLocation(newLocation)
+  console.log("newLocation", newLocation)
+};
+
+const errorCallback = (error) => {
+  console.log(error);
+};
+
+
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCreateConsultation({ ...createConsultation, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    props.addAConsultation(createConsultation)
+  const handleImage = (e) => {
+    console.log(e.target.files[0]);
+    setFile(e.target.files[0]);
+  }
 
+
+
+
+  const fetchCurrentLocation = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setDestination({ lat: latitude, lng: longitude });
+          console.log(latitude, longitude);
+        },
+        (error) => {
+          console.error('Error getting current location:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
   };
+
+
+
+
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+  const formData = new FormData();
+  
+  formData.append('consultation_image', file);
+  // formData.append('consultation_description', createConsultation.company_name);
+
+  formData.append('consultation_description', createConsultation.consultation_description);
+  formData.append('consultation_land_area', createConsultation.consultation_land_area);
+  formData.append('consultation_land_dimensions', createConsultation.consultation_land_dimensions);
+  formData.append('consultation_land_map', createConsultation.consultation_land_map);
+  // formData.append('consultation_land_autocad', createConsultation.consultation_land_autocad);
+
+  props.addAConsultation(formData);
+
+  resetForm()
+ 
+
+
+};
 
   return (
    <>
    <h2 className='text-center'>Create Consultation</h2>
-   <form onSubmit={handleSubmit}>
+   <form key={formKey} onSubmit={handleSubmit}>
 
 
     
@@ -42,10 +124,23 @@ const [createConsultation, setCreateConsultation] = useState({})
   <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
   <label>Location Image</label>
-  {/* using file for images */}
-  <input type='file' name='Consultation_image' value={createConsultation.Consultation_image} onChange={handleChange} className='form-control'></input>
+  <input type='file'   id="Consultation_image" name='Consultation_image' value={createConsultation.Consultation_image} onChange={handleImage} accept="image/png, image/jpeg, image/gif" className='form-control'>
+  </input>
   </div>
   </div>
+
+  {file && (
+          <div className='row d-flex justify-content-center align-items-center'>
+            <div className='col-md-6'>
+              <label>Chosen Image</label>
+              <img
+                src={URL.createObjectURL(file)}
+                alt='Chosen Consultation Image'
+                style={{ width: '100%', height: 'auto', marginTop: '10px' }}
+              />
+            </div>
+          </div>
+        )}
 
   <br></br>
 
@@ -70,12 +165,30 @@ const [createConsultation, setCreateConsultation] = useState({})
   <br></br>
 
 
-  <div className='row d-flex justify-content-center align-items-center'>
+  {/* <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
   <label>Land Map</label>
   <input type='file' name='consultation_land_map' value={createConsultation.consultation_land_map} onChange={handleChange} className='form-control'></input>
   </div>
+  </div> */}
+
+<div className='row d-flex justify-content-center align-items-center'>
+  <div className='col-md-6'>
+    <label>Land Map</label>
+    <div className="mb-3">
+  <label htmlFor="consultation_land_map" className="form-label">
+  
+  </label>
+  <Map destination={destination} key={destination && destination.lat || 2} />
+  <button className='d-flex justify-content-center'
+  type="button" onClick={fetchCurrentLocation}>Get Current Location</button>
+</div>
   </div>
+</div>
+
+
+
+
 
 <br></br>
 
