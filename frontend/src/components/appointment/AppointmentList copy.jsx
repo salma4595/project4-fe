@@ -28,7 +28,7 @@ useEffect(() => {
     Axios.get("/appointment/index")
     .then((response) => {
     console.log(response);
-    
+    console.log(appointments);
     setAppointments(response.data.appointments);
     })
     .catch((error) => {
@@ -95,9 +95,9 @@ const addAppointment = (appointment) => {
             }
            
 //return arrow function with normal bracket as it treats this as one value
-const allAppointments = appointments && appointments.map((appointment, index) => (
+const allAppointment =  appointments.map((appointment, index) => (
     <tr key={index}>
-      <Appointment name={appointment.name} emailAddress={appointment.emailAddress} index={index} />
+        <Appointment name={appointment.name} emailAddress={appointment.emailAddress} index={index} />
         { props.user?.userType == 3 ? ( appointment.user == props.user._id ? 
         <> 
             <Appointment {...appointment} index={index+1} editView={editView} deleteAppointment={deleteAppointment} isEditAppointment={isEditAppointment} setIsEditAppointment={setIsEditAppointment} />
@@ -136,20 +136,21 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
         <br />
         <h5> Appointment List</h5>
         <table className="table">
-      <tbody>
-        <tr className="table-success">
-          <th>No.</th>
-          <th>Consultation Id</th>
-          <th>Description</th>
-          <th>Date / Time</th>
-          <th>Location</th>
-          <th>quantity</th>
-          <th>Price</th>
-          <th>Notes(s)</th>
-          <th></th>
-        </tr>
-        {allAppointments != null ? allAppointments : "No data"}
-      </tbody>
+        <tbody>
+            <tr className="table-success">
+            <th>No.</th>
+            <th>Consultation Id</th>
+            <th>Description</th>
+            <th>Date / Time</th>
+            <th>Location</th>
+            <th>quantity</th>
+            <th>Price</th>
+            <th>Notes(s)</th>
+            <th></th>
+            </tr>
+                {  allAppointment != null ? allAppointment : "No data" }
+                    
+                    </tbody>
     </table>
 </>
 }

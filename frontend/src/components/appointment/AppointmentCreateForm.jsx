@@ -39,12 +39,13 @@ export default function AppointmentCreateForm(props) {
 
             </div>
         <div>
-          <label>location</label>
-          <input type='text' name='location' onChange={handleChange}></input>
+       
+          <label htmlFor="location" className="form-label">location</label>
+          <input type='text' name='location' id="location" onChange={handleChange}></input>
         </div>
         <div>
-          <label>notes</label>
-          <textarea type='text' name='notes' onChange={handleChange}></textarea>
+        <label htmlFor="notes" className="form-label">Notes</label>
+          <textarea type='text' name='notes'  id="notes"  onChange={handleChange}></textarea>
         </div>
 
         <div>

@@ -20,6 +20,8 @@ import SignInForm from './components/user/SignInForm';
 import UserProfile from './components/user/UserProfile';
 import UserList from './components/user/UserList';
 import HomePage from './components/homePage/HomePage';
+import QuotationList from './components/quotation/QuotationList';
+import AppointmentList from './components/appointment/AppointmentList';
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -37,6 +39,8 @@ function App() {
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
   */}
 
+<Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
+<Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
     <Routes>
     <Route path="/" element={<HomePage></HomePage>} />
       <Route path="/company/AddCompanyForm" element={<AddCompanyForm/>} />
@@ -47,8 +51,8 @@ function App() {
       <Route path='/user/UserList' element={<UserList/>} />
       <Route path='/user/UserProfile' element={<UserProfile/>} />
       {/* <Route path='/user/EditProfile' element={<EditProfile/>} /> */}
-      
-
+      <Route path='/quotation/QuotationList' element={<QuotationList/>} />
+      <Route path='/appointment/AppointmentList' element={<AppointmentList/>} />
       
     </Routes>
     <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
