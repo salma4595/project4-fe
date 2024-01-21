@@ -1,5 +1,5 @@
 import React from 'react'
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Category({category,onClick , editCategory , deleteCategory}) {
   const handleCategoryClick = () =>{

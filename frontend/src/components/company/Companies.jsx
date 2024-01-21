@@ -22,17 +22,7 @@ function CompanyPage(props) {
       });
   }, []);
 
-  // const editCompanyFun = (id) => {
-  //   Axios.get(`/company/edit?id=${id}`)
-  //     .then((res) => {
-  //       console.log('Company Added successfully!!!');
-  //       setEditCompany(res.data.company)
-  //       setIsEdit(!isEdit)
-  //     })
-  //     .catch((err) => {
-  //       console.log('Error adding Company');
-  //     });
-  // };
+  
   return (
     <div className="container">
 
@@ -49,7 +39,7 @@ function CompanyPage(props) {
           
             <div className="card">
               <Link to={"/company/cars/"+company._id} > {/* Add the Link component */}
-                <img src={company.company_image} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={company.company_name} />
+                <img src={company.company_images} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={company.company_name} />
               </Link>
               <div className="card-body">
                 <h2 className="card-title">{company.company_name}</h2>
