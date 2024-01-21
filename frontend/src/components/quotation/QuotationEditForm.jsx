@@ -29,6 +29,18 @@ export default function QuotationEditForm(props) {
       <h1> Edit Quotation </h1>
 
       <form onSubmit={handleSubmit}> 
+      <div>
+          <label>User</label>
+          <input type='text' name='user'value={quotation.user} onChange={handleChange} readOnly></input>
+        </div>
+        <div>
+          <label>company</label>
+          <input type='text' name='company'value={quotation.company} onChange={handleChange} readOnly></input>
+        </div>
+      <div>
+          <label>Consultation</label>
+          <input type='text' name='Consultation'value={quotation.Consultation} onChange={handleChange} readOnly></input>
+        </div>
         <div>
           <label>date</label>
           <input type='text' name='date'value={quotation.date} onChange={handleChange} readOnly></input>

@@ -105,13 +105,22 @@ const [formData, setFormData] = useState({});
     <div className="container py-1 mb-5">
         <h1>Quotation for Inquire </h1>
         
-
+// i need to get the consultion description in select form
+// i need to get the user id and company name
         <div className="row g-5">
 
         <div className="col-md-6 col-lg-6">
         <form onSubmit={handleSubmit} autoComplete="off">
+        <div>
+          <label>User</label>
+          <input type='text' name='user' onChange={handleChange} readOnly></input> id
+        </div>
+        <div>
+          <label>company</label>
+          <input type='text' name='company' onChange={handleChange} readOnly></input> id
+        </div>
             <div className="mb-3 pb-1">
-                <label htmlFor="consultation" className="form-label">Consultation: </label>
+                <label htmlFor="consultation" className="form-label">Consultation: </label> 
                 
                 <select id="consultation" name="consultation" className="form-select" onChange={handleConsultationChange} required>
                 <option value="{consultation._id}" selected disabled>
@@ -124,7 +133,7 @@ const [formData, setFormData] = useState({});
                     </option>
                   ))
                 ) : (
-                  <option>Loading...</option>
+                  <option>consultation_description...</option>
                 )}
               </select>
             </div>

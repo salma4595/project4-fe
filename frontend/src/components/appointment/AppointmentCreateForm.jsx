@@ -27,10 +27,16 @@ export default function AppointmentCreateForm(props) {
       <h1> Create Appointment </h1>
 
       <form onSubmit={handleSubmit}> 
-        {/* <div>
-          <label>Consultation</label>
-          <input type='text' name='Consultation' onChange={handleChange}></input>
-        </div> */}
+      //need to get the user id and the quotation id as select form 
+      // i cannot get the index for appointment
+      <div>
+          <label>User</label>
+          <input type='text' htmlFor='user' onChange={handleChange}></input>
+        </div>
+        <div>
+          <label>Quotation</label>
+          <input type='text' htmlFor='quotation' onChange={handleChange}></input>
+        </div>
         <div className="mb-3 pb-1">
             <label htmlFor="date" className="form-label"> Date / Time </label> 
             {/* <input type="time" className='form-control' name="time" onChange={handleChange}></input> */}
