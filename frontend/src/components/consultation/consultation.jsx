@@ -7,7 +7,8 @@ export default function Consultation(props) {
     <>
         
          <td>{props.consultation_description}</td>
-         <td>{props.consultation_image}</td>
+         <td>
+          <img src={props.consultation_image} alt="" width={50} /></td>
          <td>{props.consultation_land_area}</td>
          <td>{props.consultation_land_dimensions}</td>
          <td>{props.consultation_land_map}</td>
@@ -19,7 +20,7 @@ export default function Consultation(props) {
     </button></td>
 
    <td><button  onClick={() => props.deleteForm(props._id)} className='btn btn-link'>
-    <i className="bi bi-trash"></i>
+    <i className="bi bi-trash-fill"></i>
     </button></td>
 
     </>

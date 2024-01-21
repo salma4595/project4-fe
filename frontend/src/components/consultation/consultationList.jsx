@@ -32,7 +32,7 @@ export default function ConsultationList(props){
   
 
   const addConsultation = (consultations) => {
-    Axios.post("/consultations/add", consultations)
+    Axios.post("/consultations/add", consultations, { headers: {'Content-Type': 'multipart/form-data'}})
     .then(res =>{
     console.log('Consultation has been sent') 
     loadConsultationList()
@@ -49,7 +49,7 @@ export default function ConsultationList(props){
   const editConsultation = (id) => {
     Axios.get(`/consultations/edit?id=${id}`)
     .then((res) => {
-      console.log(res.data.courses) 
+      console.log(res.data) 
       console.log('Loaded the Information') 
      let consultations = res.data.consultations   
     setIsEdit(true)
@@ -66,7 +66,7 @@ export default function ConsultationList(props){
 
   
   const updateTheview = (consultations) => {
-    Axios.put("/consultations/update", consultations )
+    Axios.put("/consultations/update", consultations , { headers: {'Content-Type': 'multipart/form-data'}}  )
     
     .then(res => {
       console.log('consultations has been Updated')
@@ -108,18 +108,18 @@ const theConsultataionRound = consultations.map((consultation, index) => (
 return(
   <>
   <div>
-      <h2 className='text-center mt-4'>Consulltation List</h2>
+      <h2 className='text-center mt-4'>Consultation List</h2>
        <div  className='row d-flex justify-content-center align-items-center text-center table table-bordered mb-2'>
        <div className='col-md-6 '>
          <table className="table table-stripes table mt-4 table border-top">
           <thead>
             <tr>
-              <th>consultation_description</th>
-              <th>Consultation_image</th>
-              <th>consultation_land_area</th>
-              <th>consultation_land_dimensions</th>
-              <th>consultation_land_map</th>
-              <th>consultation_land_autocad</th>
+              <th>Description</th>
+              <th>Location Image</th>
+              <th>Land Area</th>
+              <th>Land Dimensions</th>
+              <th>Land Map</th>
+              <th>Land Autocad</th>
              <th>Edit</th>
              <th>Delete</th>
             </tr>   
