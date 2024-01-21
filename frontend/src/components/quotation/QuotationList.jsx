@@ -101,6 +101,7 @@ Axios.get(`/quotation/delete?id=${id}`)
 
 //return arrow function with normal bracket as it treats this as one value
 const allQuotation = quotations.map((quotation, index) => (
+
 <tr key={index}>
     {/* <Quotation name={quotation.name} emailAddress={quotation.emailAddress} index={index} /> */}
     {props.user?.userType == 3 ? ( quotation.user == props.user._id ? 

@@ -74,6 +74,7 @@ function App() {
           localStorage.setItem("token", token);
           const user = getUser();
           console.log(user);
+          sessionStorage.setItem("UserId", user.id);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUser(user) : setUser(null);
           user ? showUser(user.id) : showUser(null)
@@ -128,8 +129,8 @@ function App() {
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserList"> User List </Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserProfile"> User Profile </Link> &nbsp;
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
-    {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
-  */}
+     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
+     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/consultation/consultationList">Category List</Link> &nbsp;
 
 <Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
 <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
@@ -145,7 +146,8 @@ function App() {
       <Route path='/user/UserProfile' element={<UserProfile/>} />
       <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
       <Route path="/company/CompanyDetails/:id" element={<CompanyDetails></CompanyDetails>} />
-          
+      <Route path='/consultation/consultationList' element={<ConsultationList></ConsultationList>} />
+     
       {/* <Route path='/user/EditProfile' element={<EditProfile/>} /> */}
       <Route path='/quotation/QuotationList' element={<QuotationList/>} />
       <Route path='/appointment/AppointmentList' element={<AppointmentList/>} />
