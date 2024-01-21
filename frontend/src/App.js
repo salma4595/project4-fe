@@ -11,6 +11,7 @@ import logo from './logo.svg';
 import './App.css';
 import {Link} from 'react-router-dom'
 import { Routes } from 'react-router-dom';
+
 import { Route } from 'react-router-dom';
 import AddCompanyForm from './components/company/AddCompanyForm';
 import JoinRequestForm from './components/company/JoinRequestForm';
@@ -20,6 +21,7 @@ function App() {
   return (
     <>
     hello
+    It's me
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/AddCompanyForm">Add Company</Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/JoinRequestForm">Join As a Company</Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/Companies">Show Companies</Link> &nbsp;
