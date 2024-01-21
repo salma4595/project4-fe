@@ -28,8 +28,8 @@ useEffect(() => {
     Axios.get("/appointment/index")
     .then((response) => {
     console.log(response);
-    
     setAppointments(response.data.appointments);
+    console.log(response.data.appointments); // Add this line
     })
     .catch((error) => {
     console.log(error);
@@ -111,7 +111,8 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
         }
     </tr>    
     ))
-    
+          
+    console.log(allAppointments); // Add this line
     return (
     <>
     
@@ -148,7 +149,9 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
           <th>Notes(s)</th>
           <th></th>
         </tr>
-        {allAppointments != null ? allAppointments : "No data"}
+        
+  
+        {Array.isArray(allAppointments) && allAppointments.length > 0 ? allAppointments : "No data"}
       </tbody>
     </table>
 </>
