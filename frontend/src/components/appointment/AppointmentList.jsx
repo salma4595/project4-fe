@@ -140,7 +140,7 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
       <tbody>
         <tr className="table-success">
           <th>No.</th>
-          <th>Consultation Id</th>
+          <th>Quotation Id</th>
           <th>Description</th>
           <th>Date / Time</th>
           <th>Location</th>
@@ -151,7 +151,7 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
         </tr>
         
   
-        {Array.isArray(allAppointments) && allAppointments.length > 0 ? allAppointments : "No data"}
+        {Array.isArray(allAppointments) && allAppointments.length > 0 ? allAppointments : "I dont get appointment index No data"}
       </tbody>
     </table>
 </>

@@ -5,6 +5,7 @@ import Axios from 'axios';
 
 
 export default function QuotationCreateForm(props) {
+    
 
 const QuotationForm = () => {
     const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ useEffect(() => {
 //for quotation form
 const loadConsultationList = () => {
 // Axios.get("consultation/index", props.passToken)
-Axios.get("consultation/index")
+Axios.get("/consultations/index")
 .then((response) => {
 console.log(response);
 setConsultation(response.data.consultation);
@@ -46,7 +47,7 @@ const [loading, setLoading] = useState(false);
 const [url, setUrl] = useState("");
 
 const handleChange = (event) => { 
-    const attributeToChange = event.target.name;
+    const attributeToChange = event.target.id;
     const newValue = event.target.value;
 
     const quotation = {...newQuotation};
@@ -59,7 +60,7 @@ const [selectConsultation , setSelectConsultation] = useState("");
 const [selectedConsultationInfo , setSelectedConsultationInfo] = useState();
 
 const handleConsultationChange = (event) => { 
-    const attributeToChange = event.target.name;
+    const attributeToChange = event.target.id;
     const newConsultation = event.target.value;
 
     //console.log(newConsultation);
@@ -67,7 +68,7 @@ const handleConsultationChange = (event) => {
     setSelectConsultation(newConsultation);
 
     const quotation = {...newQuotation};
-    // quotation[attributeToChange] = newConsultation;
+    quotation[attributeToChange] = newConsultation;
     setnewQuotation(quotation);
     consultationView(newConsultation);
 } 
@@ -80,11 +81,11 @@ const handleSubmit = (event) =>{
 }
 
 const consultationView = (id) => {
-Axios.get(`consultation/detail?id=${id}`)
+Axios.get(`/consultation/detail?id=${id}`)
 .then( ( res ) => {
     console.log("Loaded Consultation Info");
     console.log(res.data.consultation);
-    //let consultations = res.data.consultation;
+    let consultations = res.data.consultation;
 
     setSelectedConsultationInfo(res.data.consultation);
 
@@ -104,24 +105,38 @@ const [formData, setFormData] = useState({});
     <div className="container py-1 mb-5">
         <h1>Quotation for Inquire </h1>
         
-
+// i need to get the consultion description in select form
+// i need to get the user id and company name
         <div className="row g-5">
 
         <div className="col-md-6 col-lg-6">
         <form onSubmit={handleSubmit} autoComplete="off">
-            {/* <div className="mb-3 pb-1">
-                <label htmlFor="consultation" className="form-label">Consultation: </label>
+        <div>
+          <label>User</label>
+          <input type='text' name='user' onChange={handleChange} readOnly></input> id
+        </div>
+        <div>
+          <label>company</label>
+          <input type='text' name='company' onChange={handleChange} readOnly></input> id
+        </div>
+            <div className="mb-3 pb-1">
+                <label htmlFor="consultation" className="form-label">Consultation: </label> 
                 
                 <select id="consultation" name="consultation" className="form-select" onChange={handleConsultationChange} required>
-                <option value="" selected disabled>Select a monitored Consultation</option>
-                {   
-                    consultation.map( (consultations, index) => (
-                        <option key={index} value={consultations._id}>{consultations.name}</option>
-                    )
+                <option value="{consultation._id}" selected disabled>
+                  Select a monitored Consultation
+                </option>
+                {consultation ? (
+                  consultation.map((consultation, index) => (
+                    <option key={index} value={consultation._id}>
+                      {consultation.consultation_description}
+                    </option>
+                  ))
+                ) : (
+                  <option>consultation_description...</option>
                 )}
-
-                </select>
-            </div> */}
+              </select>
+            </div>
 
             {/* <div className="mb-3 pb-1">
                 <label htmlFor="date" className="form-label">Date</label>

@@ -9,7 +9,7 @@ export default function Quotation(props) {
   return (
     <>
     <td>{props.index}</td>
-    <td>{props.Consultation}</td>
+    <td>{props.consultation}</td>
     <td>{props.description}</td>
     <td>{props.date}</td>
     <td>{props.location}</td>
