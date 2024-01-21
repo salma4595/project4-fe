@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Category from "./Category";
+import Category from './Category';
 import  Axios  from 'axios';
 import CategoryCreateForm from './CategoryCreateForm';
 import CategoryEditForm from './CategoryEditForm';
@@ -18,7 +18,7 @@ export default function CategoryList() {
 
     const loadCategoriesList = () =>{
        
-         Axios.get("categories/index")
+         Axios.get("/categories/index")
           .then((response)=>{
             setCategories(response.data.categories);
           })
@@ -28,7 +28,7 @@ export default function CategoryList() {
             
     };
     const addCategory = (Category) => {
-        Axios.post("categories/add",Category)
+        Axios.post("/categories/add",Category)
         .then(() => {
             loadCategoriesList();
         })
@@ -37,7 +37,7 @@ export default function CategoryList() {
         });
     };
     const editView = (id) => {
-        Axios.get(`categories/edit?id=${id}`)
+        Axios.get(`/categories/edit?id=${id}`)
         .then((res) =>{
             let category = res.data.categories;
             setIsEdit(true);
@@ -48,7 +48,7 @@ export default function CategoryList() {
         });
     };
     const UpdateCategory = (category) => {
-        Axios.put("categories/update",category)
+        Axios.put("/categories/update",category)
         .then(()=>{
             loadCategoriesList();
         })
@@ -57,7 +57,7 @@ export default function CategoryList() {
         });
     };
     const deleteCategory = (id) =>{
-        Axios.delete(`categories/delete?id=${id}`)
+        Axios.delete(`/categories/delete?id=${id}`)
         .then(()=>{
             loadCategoriesList();
         })
@@ -67,16 +67,43 @@ export default function CategoryList() {
     };
 
     const allCategories = categories.map((category,index) =>(
-        <tr key={index}>
-            <Category>
+        
+            <Category 
+                key={index}
                 name={category.name}
                 image={category.categories_image}
-                editView={() => editView(category._id)}
-                deleteCategory={() => deleteCategory(category._id)}
-            </Category>
+                editView={editView}
+                deleteCategory={deleteCategory}
+            
+            />
+              
+           
 
-        </tr>
+      
     ));
-
+    return (
+        <>
+         <div>
+    
+            <h3>choose a category</h3>
+          
+        <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+            {/* <a href="/category/add" class="btn btn-dark me-md-2" type="button">Add Category</a> */}
+        </div>       
+       <br/>
+     <div className="row">
+        {allCategories}
+        </div>
+    
+        {(!isEdit) ?
+        <CategoryCreateForm addCategory={addCategory}  />
+        
+         :
+        <CategoryEditForm key={currentCategory._id} category={currentCategory} updatedCategory={UpdateCategory}  />
+        }
+         </div>
+    
+        </>
+      )
    
 }
