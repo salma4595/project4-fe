@@ -1,53 +1,58 @@
+import Axios  from "axios";
 import React, { useState } from "react";
 export default function CategoryCreateForm(props) {
-    const [NewCategory,setNewCategory] = useState({});
-    //const [file, setFile] = useState();
-    const handelChange = (event) =>{
-        const attributeToChange = event.target.name;
-        const newValue = event.target.value;
-        const category = {...NewCategory}
-        category[attributeToChange] = newValue;
-        console.log(category);
-        setNewCategory(category);
+  const [newCategory,setNewCategory] = useState({
+    name: "",
+    image: null,
+  });
+
+  const handleChange = (event) =>{
+    const attributeToChange = event.target.name;
+    const newValue = event.target.value;
+    const category = {...newCategory};
+    category[attributeToChange] = newValue;
+    if(event.target.name === "image"){
+      category["image"] = event.target.files[0];
     }
+    setNewCategory(category);
+  };
 
-   // const handleImage = (event) => {
-       // console.log(event.target.files[0]);
-       // setFile(event.target.files[0]);
+   const handelSubmit = async(event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", newCategory.name);
+    formData.append("image", newCategory.categories_image);
+    try{
+      const response = await Axios.post("/api/images", formData);
+      const {imageName} = response.data;
+      const categoryWithImage = {
+        ...newCategory,imageUrl: `/images/${imageName}`,
 
-   // }
+      };
+      props.addCategory(categoryWithImage);
 
- 
-       
-    const handleSubmit = (event) =>{
-       event.preventDefault();
-        props.addIngredient(NewCategory);
-        
-        
+    }catch(error){
+      console.error(error);
     }
-
+   };
    
   return (
     <>
-    <h1 className="mt-5">Create Category:</h1>
-    <form onSubmit={handleSubmit} className="w-75 m-auto mx-auto my-5" >
-
-        <div class="mb-3">
-            <label className="mt-3">Category Name:</label>
-            <input type='text' name='name' onChange={handelChange} className="form-control"></input>
+    <h1 className="mt-5">Create Category</h1>
+    <form onSubmit={handelSubmit} className="w-75 m-auto mx-auto my-5" encType="multipart/form-data">
+        <div className="mb-3">
+            <label className="mt-3">Category Name</label>
+            <input type="text" name="name" onChange={handleChange} className="form-control"></input>
         </div>
-
-        <div class="mb-3">
-            <label for="formFile" class="form-label mt-3">Upload Category Image:</label>
-            <input class="form-control" type="file" id="formFile" name="image" ></input> 
-
+        <div className="mb-3">
+            <label htmlFor="formFile" className="form-label mt-3">Upload Category Image</label>
+            <input className="form-control" type="file" id="formFile" name="image"></input>
         </div>
-
         <div>
-            <input type='submit' value="Add Category" class="btn btn-sm btn-dark"></input>
+            <input type="submit" value="Add Category" className="btn btn-sm btn-dark"></input>
         </div>
-
-
-      </form></>
+    </form>
+    </>
+    
   )
 }
