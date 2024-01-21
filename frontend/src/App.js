@@ -1,10 +1,12 @@
-import React from 'react'
+
+import React, { useEffect, useState } from "react";
 import ConsultationList from './components/consultation/consultationList'
 // import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-
+import Axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import logo from './logo.svg';
 import './App.css';
 import {Link} from 'react-router-dom'
@@ -27,6 +29,92 @@ import AppointmentList from './components/appointment/AppointmentList';
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
+  const [isAuth, setIsAuth] = useState(false);
+  const [user, setUser] = useState({});
+  const [userList, setUserList] = useState([user]);
+  const [currentUser, setCurrentUser] = useState();
+  const [userInfo,setUserInfo]=useState()
+
+
+  useEffect(() => {
+    //const user = setUser();
+    const user = getUser();
+    console.log("INIT USER",user);
+    if (user) {
+      setIsAuth(true);
+      setUser(user);
+      // setUserInfo(user.id)
+      showUser(user.id)
+    } else {
+      localStorage.removeItem("token");
+      setIsAuth(false);
+      setUser(null);
+      
+    }
+  }, []);
+
+  const registerHandler = (user) => {
+    Axios.post("auth/signup", user)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
+  const loginHandler = (cred) => {
+    Axios.post("/auth/signin", cred)
+      .then((res) => {
+        console.log(res.data.token);
+        //Makes sure the token is Valid
+        let token = res.data.token;
+        if (token != null) {
+          localStorage.setItem("token", token);
+          const user = getUser();
+          console.log(user);
+          user ? setIsAuth(true) : setIsAuth(false);
+          user ? setUser(user) : setUser(null);
+          user ? showUser(user.id) : showUser(null)
+          // user ? setUserInfo(user.id) : setUserInfo(null)
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const getUser = () => {
+    const token = getToken();
+    return token ? jwtDecode(token).user : null;
+  };
+  const getToken = () => {
+    const token = localStorage.getItem("token");
+    return token;
+  };
+  const onLogoutHandler = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setIsAuth(false);
+    setUser(null);
+    setUserInfo(null);
+  };
+  const showUser = (id) =>{
+    Axios.get(`/user/detail?id=${id}`)
+    .then((response) => {
+      console.log(response)
+      let user = response.data.user
+      setCurrentUser(user)
+      setUserInfo(user)
+  })
+  .catch((err) => {
+      console.log(err)
+  })
+  }
+  const setHeaders =() =>{
+    return {headers:{Authorization:`Bearer ${getToken()}`}}
+  }
+
   return (
     <>
     hello
@@ -39,7 +127,7 @@ function App() {
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/EditProfile"> Edit Profile</Link> &nbsp; */}
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserList"> User List </Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserProfile"> User Profile </Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp;
+    {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
   */}
 
@@ -52,7 +140,7 @@ function App() {
       <Route path='/company/Companies' element={<Companies/>} />
       <Route path='/Category/CategoryList' element={<CategoryList/>} />
       <Route path='/user/SignUpForm' element={<SignUpForm/>} />
-      <Route path='/user/SignInForm' element={<SignInForm/>} />
+      <Route path='/user/SignInForm'  element={isAuth &&userInfo? ( <HomePage />) : (<SignInForm login={loginHandler} /> )} />
       <Route path='/user/UserList' element={<UserList/>} />
       <Route path='/user/UserProfile' element={<UserProfile/>} />
       <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
