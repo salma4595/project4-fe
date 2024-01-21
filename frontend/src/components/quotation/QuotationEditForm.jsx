@@ -31,11 +31,11 @@ export default function QuotationEditForm(props) {
       <form onSubmit={handleSubmit}> 
         <div>
           <label>date</label>
-          <input type='text' name='date'value={quotation.date} onChange={handleChange}></input>
+          <input type='text' name='date'value={quotation.date} onChange={handleChange} readOnly></input>
         </div>
         <div>
           <label>description</label>
-          <input type='text' name='description'value={quotation.description} onChange={handleChange}></input>
+          <textarea type='text' name='description'value={quotation.description} onChange={handleChange}></textarea>
         </div>
         <div>
           <label>location</label>
@@ -43,15 +43,15 @@ export default function QuotationEditForm(props) {
         </div>
         <div>
           <label>notes</label>
-          <input type='text' name='notes'value={quotation.notes} onChange={handleChange}></input>
+          <textarea type='text' name='notes'value={quotation.notes} onChange={handleChange}></textarea>
         </div>
         <div>
           <label>quantity</label>
-          <input type='text' name='quantity'value={quotation.quantity} onChange={handleChange}></input>
+          <input type='number' name='quantity'value={quotation.quantity} onChange={handleChange}></input>
         </div>
         <div>
           <label>price</label>
-          <input type='text' name='price'value={quotation.price} onChange={handleChange}></input>
+          <input type='number' name='price'value={quotation.price} onChange={handleChange}></input>
         </div>
 
 

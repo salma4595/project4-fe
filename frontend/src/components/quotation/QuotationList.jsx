@@ -103,7 +103,7 @@ Axios.get(`/quotation/delete?id=${id}`)
 const allQuotation = quotations.map((quotation, index) => (
 <tr key={index}>
     {/* <Quotation name={quotation.name} emailAddress={quotation.emailAddress} index={index} /> */}
-    { props.user?.userType == 3 ? ( quotation.user == props.user._id ? 
+    {props.user?.userType == 3 ? ( quotation.user == props.user._id ? 
     <> 
         <Quotation {...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
     </>
