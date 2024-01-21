@@ -79,22 +79,7 @@ export default function CategoryList() {
     ));
 
   return (
-    <div>
-    <h1>Categories List</h1> 
-    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-        {/* <a href="/category/add" class="btn btn-dark me-md-2" type="button">Add Category</a> */}
-
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a href="/category/add" class="btn btn-dark me-md-2" type="button">Add Category</a>
-
-    
-
-
-     :
-    <CategoryEditForm key={currentCategory._id} category={currentCategory} updatedCategory={updatedCategory} setFile={setFile} user={props.user}/>
-    }
-     </div> */}
-
-    </>
+    gj
   )
+   
 }
