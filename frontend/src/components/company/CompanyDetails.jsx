@@ -2,8 +2,8 @@ import React, { useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom'
 import { Link, useParams } from 'react-router-dom';
 import Axios from 'axios';
-import Map from '../forms/Map';
-import AddCompanyForm from '../forms/AddCompanyForm';
+import Map from '../company/Map';
+import AddCompanyForm from '../company/AddCompanyForm';
 
 export default function CompanyDetailPage(props) {
   const [companyData, setCompanyData] = useState([]);

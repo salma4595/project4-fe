@@ -21,6 +21,7 @@ import SignInForm from './components/user/SignInForm';
 import UserProfile from './components/user/UserProfile';
 import UserList from './components/user/UserList';
 import HomePage from './components/homePage/HomePage';
+import CompanyDetails from './components/company/CompanyDetails';
 // import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/EditProfile"> Edit Profile</Link> &nbsp; */}
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserList"> User List </Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserProfile"> User Profile </Link> &nbsp;
+    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp;
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
   */}
 
@@ -46,8 +48,12 @@ function App() {
       <Route path='/company/Companies' element={<Companies/>} />
       <Route path='/Category/CategoryList' element={<CategoryList/>} />
       <Route path='/user/SignUpForm' element={<SignUpForm/>} />
+      <Route path='/user/SignInForm' element={<SignInForm/>} />
       <Route path='/user/UserList' element={<UserList/>} />
       <Route path='/user/UserProfile' element={<UserProfile/>} />
+      <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
+      <Route path="/company/CompanyDetails/:id" element={<CompanyDetails></CompanyDetails>} />
+          
       {/* <Route path='/user/EditProfile' element={<EditProfile/>} /> */}
       
 
@@ -105,36 +111,3 @@ export default App;
 
 
 
-
-
-
-
-
-
-
-
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
