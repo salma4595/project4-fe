@@ -1,8 +1,10 @@
 import React from 'react'
 import ConsultationList from './components/consultation/consultationList'
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'bootstrap-icons/font/bootstrap-icons.css';
+
+
 
 
 import logo from './logo.svg';
@@ -13,14 +15,6 @@ import { Route } from 'react-router-dom';
 import AddCompanyForm from './components/company/AddCompanyForm';
 import JoinRequestForm from './components/company/JoinRequestForm';
 import Companies from './components/company/Companies';
-import CategoryList from './components/Category/CategoryList';
-import SignUpForm from './components/user/SignUpForm';
-import SignInForm from './components/user/SignInForm';
-// import EditProfile from './components/user/EditProfile';
-import UserProfile from './components/user/UserProfile';
-import UserList from './components/user/UserList';
-import HomePage from './components/homePage/HomePage';
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
