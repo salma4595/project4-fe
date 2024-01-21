@@ -78,8 +78,5 @@ export default function CategoryList() {
         </tr>
     ));
 
-  return (
-    gj
-  )
    
 }
