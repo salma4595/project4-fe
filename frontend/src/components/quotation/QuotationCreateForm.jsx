@@ -37,7 +37,7 @@ console.log(error);
 
 const [newQuotation , setnewQuotation] = useState({});
 
-
+newQuotation.user = sessionStorage.getItem("UserId");
 const[newPrice, setNewPrice] = useState("");
 const[newLong, setNewLong] = useState("");
 
@@ -113,7 +113,7 @@ const [formData, setFormData] = useState({});
         <form onSubmit={handleSubmit} autoComplete="off">
         <div>
           <label>User</label>
-          <input type='text' name='user' onChange={handleChange} readOnly></input> id
+          <input type='text' name='user' onChange={handleChange} value={newQuotation.user} readOnly></input> id
         </div>
         <div>
           <label>company</label>
