@@ -15,7 +15,7 @@ const [currentQuotation, setCurrentQuotation] = useState({}); //this is used to 
 const[isCreateQuotation,setIsCreateQuotation]=useState(false);
 const[isEditQuotation,setIsEditQuotation]=useState(false);
 
-const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
+// const passToken = { headers: { "Authorization": "Bearer " + localStorage.getItem("token")}};
 
 // const passToken = passedToken;
 
@@ -27,8 +27,8 @@ loadQuotationList();
 
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
-    setQuotation(dummyData)
-Axios.get("quotation/index")
+    // setQuotation(dummyData)
+Axios.get("/quotation/index")
 .then((response) => {
 console.log(response);
 setQuotation(response.data.quotations);
@@ -39,15 +39,15 @@ console.log(error);
 };
 
 //create the API for creating the Quotation
-const addQuotation = (quotations) => {
-    Axios.post("quotation/add",quotations)
+const addQuotation = (quotation) => {
+    Axios.post("/quotation/add",quotation)
     .then(res =>{
         console.log(res);
                     console.log("Quotation Added!");
                     loadQuotationList();
                 })
                 .catch((err) =>{
-                    console.log("Error in adding!");
+                    console.log("Error in adding Quotation !");
                     console.log(err);
                 })
             }
@@ -55,7 +55,7 @@ const addQuotation = (quotations) => {
 //create the API for preparing the content for the Edit Form
 const editView = (id) => {
 // console.log(passToken)
-Axios.get(`quotation/edit?id=${id}`)
+Axios.get(`/quotation/edit?id=${id}`)
 .then( ( res ) => {
     // console.log("Loaded Quotation Information");
     // console.log(res.data.quotation);
@@ -71,7 +71,7 @@ Axios.get(`quotation/edit?id=${id}`)
 
 //create the API for Update Quotation 
 const updateQuotation = (quotations) => {
-Axios.post("quotation/update",quotations)
+Axios.post("/quotation/update",quotations)
 .then(( res ) => {
     console.log("Quotation Updated Successfully!");
     console.log(res);
@@ -87,10 +87,10 @@ Axios.post("quotation/update",quotations)
 
 //create Delete API to Delete Quotation
 const deleteQuotation = (id) => {
-Axios.get(`quotation/delete?id=${id}`)
+Axios.get(`/quotation/delete?id=${id}`)
 .then(( res ) => {
-    console.log("Quotation Deleted Successfully!");
     // console.log(res);
+    console.log("Quotation Deleted Successfully!");
     loadQuotationList();
 })
 .catch((error) => {

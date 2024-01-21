@@ -27,10 +27,10 @@ export default function AppointmentCreateForm(props) {
       <h1> Create Appointment </h1>
 
       <form onSubmit={handleSubmit}> 
-        <div>
+        {/* <div>
           <label>Consultation</label>
           <input type='text' name='Consultation' onChange={handleChange}></input>
-        </div>
+        </div> */}
         <div className="mb-3 pb-1">
             <label htmlFor="date" className="form-label"> Date / Time </label> 
             {/* <input type="time" className='form-control' name="time" onChange={handleChange}></input> */}
@@ -39,12 +39,13 @@ export default function AppointmentCreateForm(props) {
 
             </div>
         <div>
-          <label>location</label>
-          <input type='text' name='location' onChange={handleChange}></input>
+       
+          <label htmlFor="location" className="form-label">location</label>
+          <input type='text' name='location' id="location" onChange={handleChange}></input>
         </div>
         <div>
-          <label>notes</label>
-          <textarea type='text' name='notes' onChange={handleChange}></textarea>
+        <label htmlFor="notes" className="form-label">Notes</label>
+          <textarea type='text' name='notes'  id="notes"  onChange={handleChange}></textarea>
         </div>
 
         <div>
