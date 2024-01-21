@@ -23,7 +23,8 @@ useEffect(() => {
 
 //for quotation form
 const loadConsultationList = () => {
-Axios.get("consultation/index", props.passToken)
+// Axios.get("consultation/index", props.passToken)
+Axios.get("consultation/index")
 .then((response) => {
 console.log(response);
 setConsultation(response.data.consultation);
