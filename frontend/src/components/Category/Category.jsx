@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 
 
 export default function Category(props) {
@@ -8,10 +8,10 @@ export default function Category(props) {
 
   return( 
     <>
-
+    <Link to="/company/Companies">
     <div className="col-md-4" >
          <div className="card shadow-sm">
-         <img src={props.categories_image} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={props.name} />
+         <img src={props.image} className="card-img-top" style={{ width: "50%", height: "50%", objectFit: "contain" }} alt={props.name} />
           <div className="card-body text-bg-dark">
             <h5 className="card-title">{props.name}</h5>
            <div className='d-flex justify-content-between'>
@@ -24,6 +24,7 @@ export default function Category(props) {
 
          </div>
     </div>
+    </Link>
     
     </>
   )
