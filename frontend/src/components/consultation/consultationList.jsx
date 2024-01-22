@@ -104,7 +104,6 @@ const theConsultataionRound = consultations.map((consultation, index) => (
   </tr>
 )
 )
-
 return(
   <>
   <div>
@@ -129,7 +128,7 @@ return(
         </div>
     </div>
     {(!isEdit) ? 
-      <ConsultationCreateForm addAConsultation={addConsultation}></ConsultationCreateForm>
+      <ConsultationCreateForm user_fullName={props.user_fullName} addAConsultation={addConsultation}></ConsultationCreateForm>
       :
       <ConsultationEditForm key={currentConsultations._id} presentConsultation={currentConsultations} updateTheview={updateTheview}></ConsultationEditForm>
 }
