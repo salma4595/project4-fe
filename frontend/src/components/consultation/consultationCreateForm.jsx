@@ -1,5 +1,6 @@
-import React, { useState , useRef } from 'react';
+import React, { useState , useRef, useEffect } from 'react';
 import Map from './Map';
+import Axios from 'axios'
 
 export default function ConsultationCreateForm(props){
 // all the states
@@ -11,9 +12,28 @@ const autocompleteRef = useRef(null);
 // adding states for image upload
 const [file, setFile] = useState(null);
 const [imageUrl, setImageUrl] = useState('');
-
 // adding another state for resetting form, reason is the other method didnt work
 const [formKey, setFormKey] = useState(0)
+// adding state to for user id
+const [users, setUsers] = useState([])
+
+
+
+const fechingUser = () => {
+  Axios.get('/user/index')
+  
+  .then(res => {
+    setUsers(res.data.users)
+  })
+  .catch(err => {
+    console.log('error')
+    console.log(err);
+  })
+}
+
+useEffect(() => {
+  fechingUser();
+}, [createConsultation.user_id]);
 
 
 
@@ -29,6 +49,8 @@ const handleMapClick = (selectedLocation) => {
   setDestination(selectedLocation);
 };
 
+
+// might delete
 // const successCallback = (position) => {
 //   console.log("coor",position.coords);
 //   const newLocation = {
@@ -38,10 +60,9 @@ const handleMapClick = (selectedLocation) => {
 //   setLocation(newLocation)
 //   console.log("newLocation", newLocation)
 // };
-
-const errorCallback = (error) => {
-  console.log(error);
-};
+// const errorCallback = (error) => {
+//   console.log(error);
+// };
 
 
 
@@ -77,23 +98,28 @@ const errorCallback = (error) => {
     }
   };
 
-
-
-
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
   const formData = new FormData();
   
   formData.append('consultation_image', file);
-  // formData.append('consultation_description', createConsultation.company_name);
+
 
   formData.append('consultation_description', createConsultation.consultation_description);
   formData.append('consultation_land_area', createConsultation.consultation_land_area);
   formData.append('consultation_land_dimensions', createConsultation.consultation_land_dimensions);
-  formData.append('consultation_land_map', createConsultation.consultation_land_map);
-  // formData.append('consultation_land_autocad', createConsultation.consultation_land_autocad);
+  formData.append('consultation_land_map', createConsultation.consultation_land_map || '');
+  
+
+    if (destination){
+      const { lat, lng} = destination
+      const coordinates = `${destination.lat},${destination.Ing}`
+      formData.append('coordinates', coordinates)
+    }
+
+    formData.append('')
+
 
   props.addAConsultation(formData);
 
@@ -108,7 +134,19 @@ const errorCallback = (error) => {
    <h2 className='text-center'>Create Consultation</h2>
    <form key={formKey} onSubmit={handleSubmit}>
 
+   <div className='row d-flex justify-content-center align-items-center'>
+          <div className='col-md-6'>
+            <label>Name</label>
+            <input
+              type='text'
+              value={props.user_fullName}
+              disabled
+              className='form-control'
+            />
+          </div>
+        </div>
 
+   
     
    <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
