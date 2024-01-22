@@ -41,6 +41,7 @@ function App() {
     const user = getUser();
     console.log("INIT USER",user);
     if (user) {
+      console.log('user if', user);
       setIsAuth(true);
       setUser(user);
       // setUserInfo(user.id)
@@ -103,7 +104,7 @@ function App() {
   const showUser = (id) =>{
     Axios.get(`/user/detail?id=${id}`)
     .then((response) => {
-      console.log(response)
+      console.log('user app.js',response)
       let user = response.data.user
       setCurrentUser(user)
       setUserInfo(user)
@@ -164,7 +165,7 @@ function App() {
       <Route path='/user/UserProfile' element={<UserProfile/>} />
       <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
       <Route path="/company/CompanyDetails/:id" element={<CompanyDetails></CompanyDetails>} />
-      <Route path='/consultation/consultationList' element={<ConsultationList></ConsultationList>} />
+      <Route path='/consultation/consultationList' element={!!currentUser?._id?<ConsultationList user_fullName={currentUser?.user_fullName} ></ConsultationList>:<></>} />
      
       {/* <Route path='/user/EditProfile' element={<EditProfile/>} /> */}
       <Route path='/quotation/QuotationList' element={<QuotationList/>} />
