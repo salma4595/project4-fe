@@ -22,13 +22,14 @@ useEffect(() => {
        
 },[]);
 
+
 //for quotation form
 const loadConsultationList = () => {
-// Axios.get("consultation/index", props.passToken)
+// Axios.get("/consultations/index", props.Token)
 Axios.get("/consultations/index")
 .then((response) => {
 console.log(response);
-setConsultation(response.data.consultation);
+setConsultation(response.data.consultations);
 })
 .catch((error) => {
 console.log(error);
@@ -60,10 +61,10 @@ const [selectConsultation , setSelectConsultation] = useState("");
 const [selectedConsultationInfo , setSelectedConsultationInfo] = useState();
 
 const handleConsultationChange = (event) => { 
-    const attributeToChange = event.target.id;
+    const attributeToChange = event.target.name;
     const newConsultation = event.target.value;
 
-    //console.log(newConsultation);
+    console.log(newConsultation);
 
     setSelectConsultation(newConsultation);
 
@@ -81,13 +82,15 @@ const handleSubmit = (event) =>{
 }
 
 const consultationView = (id) => {
-Axios.get(`/consultation/detail?id=${id}`)
+  console.log(id)
+Axios.get(`/consultations/detail?id=${id}`)
+//Axios.get('/consultations/index')
 .then( ( res ) => {
     console.log("Loaded Consultation Info");
     console.log(res.data.consultation);
     let consultations = res.data.consultation;
 
-    setSelectedConsultationInfo(res.data.consultation);
+    setSelectedConsultationInfo(consultations);
 
 })
 .catch((error) => {
@@ -99,7 +102,7 @@ Axios.get(`/consultation/detail?id=${id}`)
 // Wael upload image cahnges 
 const [formData, setFormData] = useState({});
 
-
+console.log("consultation ", consultation)
 
   return (
     <div className="container py-1 mb-5">
@@ -119,24 +122,23 @@ const [formData, setFormData] = useState({});
           <label>company</label>
           <input type='text' name='company' onChange={handleChange} readOnly></input> id
         </div>
-            <div className="mb-3 pb-1">
-                <label htmlFor="consultation" className="form-label">Consultation: </label> 
-                
-                <select id="consultation" name="consultation" className="form-select" onChange={handleConsultationChange} required>
-                <option value="{consultation._id}" selected disabled>
-                  Select a monitored Consultation
-                </option>
-                {consultation ? (
-                  consultation.map((consultation, index) => (
-                    <option key={index} value={consultation._id}>
-                      {consultation.consultation_description}
-                    </option>
-                  ))
-                ) : (
-                  <option>consultation_description...</option>
-                )}
-              </select>
-            </div>
+        <div className="mb-3 pb-1">
+  <label htmlFor="consultation" id="consultation" className="form-label">Consultation: </label> 
+  <select  name="consultation" className="form-select" onChange={handleConsultationChange} required>
+    {/* <option value="" disabled>
+      Select a monitored Consultation
+    </option> */}
+    { consultation.length > 0 ?
+
+    consultation.map((consult) => (
+      <option value={consult._id}>
+        {consult.consultation_description}
+      </option>
+    ))
+    :
+    null}
+  </select>
+</div>
 
             {/* <div className="mb-3 pb-1">
                 <label htmlFor="date" className="form-label">Date</label>
