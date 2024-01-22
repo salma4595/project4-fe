@@ -1,15 +1,30 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef ,useEffect} from 'react';
 import Axios from 'axios';
 import Map from './Map';
 
 export default function AddCompanyForm(props) {
   const [newCompany, setNewCompany] = useState({});
   const [location, setLocation] = useState("");
+  const [categories,setCategories] = useState([]);
   const [destination, setDestination] = useState(null);
   const autocompleteRef = useRef(null);
   const [file, setFile] = useState(null);
   const [imageName, setImageName] = useState(null);
   newCompany.user = sessionStorage.getItem("UserId");
+  useEffect(()=>{
+    loadCategoriesList();
+  }, [])
+
+  const loadCategoriesList = () =>{
+     Axios.get("/categories/index")
+     .then((response)=>{
+       setCategories(response.data.categories);
+     })
+     .catch((err) => {
+       console.log(err);
+     });
+       
+};
  
   const successCallback = (position) => {
     console.log("coor",position.coords);
@@ -87,6 +102,11 @@ export default function AddCompanyForm(props) {
     formData.append("company_emailAddress", newCompany.company_emailAddress);
     formData.append("company_latitude", destination.lat);
     formData.append("company_longtude", destination.lng);
+    formData.append("UserId", newCompany.user);
+    //saad modifction
+    formData.append("Categories", newCompany.Categories);
+
+
     // console.log("newCompany.company_location", location)
     // formData.append("working_days", newCompany.working_days);
 
@@ -129,6 +149,19 @@ export default function AddCompanyForm(props) {
         </div>
 
          </div>
+         <div class="mb-3">
+          {/* in name*/}
+          <select type="number" class="form-control" id="floatingInput"  name="Categories" onChange={handleChange} >
+          <option value="">Select an option</option>
+            {categories.map((category, index) => (
+            <option key={index} value={category._id}>
+            {category.name}
+          </option>
+        ))}
+            </select>
+            
+          <label for="floatingInput">categories</label>
+        </div>
         <div className="mb-3">
       <label htmlFor="company_description" className="form-label">
         Description of the Company:

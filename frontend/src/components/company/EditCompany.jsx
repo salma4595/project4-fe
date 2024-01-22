@@ -13,7 +13,20 @@ export default function EditCompanyForm(props) {
   const [imageName, setImageName] = useState(null);
   editCompany.user = sessionStorage.getItem("UserId");
   const navigate = useNavigate();
+  useEffect(()=>{
+    loadCategoriesList();
+  }, [])
 
+  const loadCategoriesList = () =>{
+     Axios.get("/categories/index")
+     .then((response)=>{
+       setCategories(response.data.categories);
+     })
+     .catch((err) => {
+       console.log(err);
+     });
+       
+};
 
   const successCallback = (position) => {
     console.log("coor",position.coords);
@@ -139,7 +152,20 @@ export default function EditCompanyForm(props) {
           <input type='text' name='user' onChange={handleChange} value={newCompany.user} disabled></input>
         </div>
         </div>
-
+      
+         
+          <div class="mb-3">
+          <select type="number" class="form-control" id="floatingInput"  name="Categories" value={categories.Categories} onChange={handleChange} >
+          <option value="">Select an option</option>
+            {categories.map((category, index) => (
+            <option key={index} value={category._id}>
+            {category.name}
+          </option>
+        ))}
+            </select>
+            
+          <label for="floatingInput">categories</label>
+        </div>
 
         <div className="mb-3">
       <label htmlFor="company_description" className="form-label">
