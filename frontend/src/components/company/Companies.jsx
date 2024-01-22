@@ -44,6 +44,8 @@ function CompanyPage(props) {
               <div className="card-body">
                 <h2 className="card-title">{company.company_name}</h2>
                 <p className="card-text">{company.company_description}</p>
+              <p className="card-text">Category: {company.Categories && company.Categories.name}</p>
+
              {/* {props.user && (props.user.userType=="SubAdmin" ||props.user.userType=="Admin") ? <button className='btn btn-primary' onClick={()=>editCompanyFun(company._id)}>Edit</button>:""} */}
               </div>
             </div>
