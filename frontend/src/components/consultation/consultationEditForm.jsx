@@ -12,6 +12,19 @@ const [location, setLocation] = useState("");
 const autocompleteRef = useRef(null);
 // for image update
 const [file, setFile] = useState(props.presentConsultation.Consultation_image);
+const [formKey, setFormKey] = useState(0)
+
+
+const resetForm = () => {
+  setEditConsultation({});
+  setFile(null);
+  setDestination(null);
+  // Reset other relevant state variables
+  setFormKey((prevKey) => prevKey + 1);
+};
+
+
+
 
 
 const successCallback = (position) => {
@@ -79,7 +92,7 @@ const errorCallback = (error) => {
   // formData.append('consultation_land_autocad', createConsultation.consultation_land_autocad);
 
     props.updateTheview(formData)
-    e.target.reset()
+    resetForm()
 
   };
 
@@ -105,6 +118,21 @@ const errorCallback = (error) => {
   <input type='file' id='Consultation_image' name='Consultation_image' value={editConsultation.Consultation_image} onChange={handleImage}   accept="image/png, image/jpeg, image/gif" className='form-control'></input>
   </div>
   </div>
+
+
+  {file && (
+          <div className='row d-flex justify-content-center align-items-center'>
+            <div className='col-md-6'>
+              <label>Chosen Image</label>
+              <img
+                src={URL.createObjectURL(file)}
+                alt='Chosen Consultation Image'
+                style={{ width: '100%', height: 'auto', marginTop: '10px' }}
+              />
+            </div>
+          </div>
+        )}
+
 
   <br></br>
 
