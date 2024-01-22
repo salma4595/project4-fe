@@ -130,7 +130,7 @@ function App() {
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserProfile"> User Profile </Link> &nbsp;
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
      <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
-     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/consultation/consultationList">Category List</Link> &nbsp;
+     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/consultation/consultationList">Consultation List</Link> &nbsp;
 
 <Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
 <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
