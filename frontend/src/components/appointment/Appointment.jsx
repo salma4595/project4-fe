@@ -10,7 +10,7 @@ export default function Appointment(props) {
   return (
     <>
     <td>{props.index}</td>
-    <td>{props.quotation}</td>
+    <td>{props.consultation?.consultation_description}</td>
     <td>{props.date}</td>
     <td>{props.location}</td>
     <td>{props.notes}</td>
