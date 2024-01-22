@@ -125,7 +125,7 @@ export default function AddCompanyForm(props) {
          <div className="mb-3"> 
          <div>
           <label>User</label>
-          <input type='text' name='user' onChange={handleChange} value={newCompany.user} readOnly></input>
+          <input type='text' name='user' onChange={handleChange} value={newCompany.user} disabled></input>
         </div>
 
          </div>
