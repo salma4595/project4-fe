@@ -9,6 +9,7 @@ export default function AppointmentCreateForm(props) {
     const [selectConsultation , setSelectConsultation] = useState("");
     const [selectedConsultationInfo , setSelectedConsultationInfo] = useState();
     const [consultation, setConsultation] = useState([]);
+    console.log(newAppointment.user);
     newAppointment.user = sessionStorage.getItem("UserId");
    
     

@@ -122,7 +122,7 @@ const allAppointments =   appointments.map((appointment, index) => (
     
         {(isCreateAppointment) ?
         <>
-        <AppointmentCreateForm addAppointment={addAppointment} isCreateAppointment={isCreateAppointment} setIsCreateAppointment={setIsCreateAppointment } />
+        <AppointmentCreateForm userID={props.userID} addAppointment={addAppointment} isCreateAppointment={isCreateAppointment} setIsCreateAppointment={setIsCreateAppointment } />
         </>
             : 
         
