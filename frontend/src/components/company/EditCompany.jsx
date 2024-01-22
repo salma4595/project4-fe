@@ -11,6 +11,7 @@ export default function EditCompanyForm(props) {
   const autocompleteRef = useRef(null);
   const [file, setFile] = useState(props.editCompany.company_image);
   const [imageName, setImageName] = useState(null);
+  editCompany.user = sessionStorage.getItem("UserId");
   const navigate = useNavigate();
 
 
@@ -132,6 +133,13 @@ export default function EditCompanyForm(props) {
             onChange={handleChange}
           />
         </div>
+        <div className="mb-3"> 
+         <div>
+          <label>User</label>
+          <input type='text' name='user' onChange={handleChange} value={newCompany.user} disabled></input>
+        </div>
+        </div>
+
 
         <div className="mb-3">
       <label htmlFor="company_description" className="form-label">
