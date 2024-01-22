@@ -11,7 +11,7 @@ import dummyData from './dummy'
 
 export default function AppointmentList(props) {
     
-const [appointments, setAppointments] = useState([]); //this is used for Create
+    const [appointments, setAppointments] = useState([]); //this is used for Create
     const [currentAppointment, setCurrentAppointment] = useState({}); //this is used to set the content for the Edit form
     const[isCreateAppointment,setIsCreateAppointment]=useState(false);
     const[isEditAppointment,setIsEditAppointment]=useState(false);
@@ -28,8 +28,8 @@ useEffect(() => {
     Axios.get("/appointment/index")
     .then((response) => {
     console.log(response);
-    setAppointments(response.data.appointments);
-    console.log(response.data.appointments); // Add this line
+    setAppointments(response.data.appointment);
+    console.log(response.data.appointment); // Add this line
     })
     .catch((error) => {
     console.log(error);
@@ -95,10 +95,10 @@ const addAppointment = (appointment) => {
             }
            
 //return arrow function with normal bracket as it treats this as one value
-const allAppointments = appointments && appointments.map((appointment, index) => (
+const allAppointments =   appointments.map((appointment, index) => (
     <tr key={index}>
-      <Appointment name={appointment.name} emailAddress={appointment.emailAddress} index={index} />
-        { props.user?.userType == 3 ? ( appointment.user == props.user._id ? 
+      {/* <Appointment name={appointment.name} emailAddress={appointment.emailAddress} index={index} /> */}
+        { props.user?.userType == "User" ? ( appointment.user == props.user._id ? 
         <> 
             <Appointment {...appointment} index={index+1} editView={editView} deleteAppointment={deleteAppointment} isEditAppointment={isEditAppointment} setIsEditAppointment={setIsEditAppointment} />
         </>
@@ -122,7 +122,7 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
     
         {(isCreateAppointment) ?
         <>
-        <AppointmentCreateForm addAppointment={addAppointment} isCreateAppointment={isCreateAppointment} setIsCreateAppointment={setIsCreateAppointment } />
+        <AppointmentCreateForm userID={props.userID} addAppointment={addAppointment} isCreateAppointment={isCreateAppointment} setIsCreateAppointment={setIsCreateAppointment } />
         </>
             : 
         
@@ -140,18 +140,15 @@ const allAppointments = appointments && appointments.map((appointment, index) =>
       <tbody>
         <tr className="table-success">
           <th>No.</th>
-          <th>Quotation Id</th>
-          <th>Description</th>
+          <th>Consultion id Id</th>
+          {/* <th>Description</th> */}
           <th>Date / Time</th>
           <th>Location</th>
-          <th>quantity</th>
-          <th>Price</th>
+          {/* <th>quantity</th> */}
           <th>Notes(s)</th>
-          <th></th>
+          <th>Action</th>
         </tr>
-        
-  
-        {Array.isArray(allAppointments) && allAppointments.length > 0 ? allAppointments : "I dont get appointment index No data"}
+        {allAppointments.length > 0 ? allAppointments : "I dont get appointment index No data"}
       </tbody>
     </table>
 </>

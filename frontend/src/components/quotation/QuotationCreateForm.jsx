@@ -29,6 +29,7 @@ const loadConsultationList = () => {
 Axios.get("/consultations/index")
 .then((response) => {
 console.log(response);
+setnewQuotation(prev => ({...prev, consultation:response.data.consultations[0]._id}))
 setConsultation(response.data.consultations);
 })
 .catch((error) => {
@@ -48,7 +49,7 @@ const [loading, setLoading] = useState(false);
 const [url, setUrl] = useState("");
 
 const handleChange = (event) => { 
-    const attributeToChange = event.target.id;
+    const attributeToChange = event.target.name;
     const newValue = event.target.value;
 
     const quotation = {...newQuotation};
@@ -87,22 +88,28 @@ Axios.get(`/consultations/detail?id=${id}`)
 //Axios.get('/consultations/index')
 .then( ( res ) => {
     console.log("Loaded Consultation Info");
-    console.log(res.data.consultation);
-    let consultations = res.data.consultation;
+    //console.log(res.data.consultations);
+    // let consultation = res.data.consultations;
 
-    setSelectedConsultationInfo(consultations);
+    setSelectedConsultationInfo(res.data.consultations);
 
 })
 .catch((error) => {
     console.log("Error loading Consultation Information: ");
     console.log(error);
 })
+
+// const UserAttrib = "User";
+// quotation[UserAttrib] = props.userID;
+
+// setnewQuotation(quotation);
+// console.log(quotation);      
 }
 
 // Wael upload image cahnges 
 const [formData, setFormData] = useState({});
 
-console.log("consultation ", consultation)
+// console.log("consultation ", consultation)
 
   return (
     <div className="container py-1 mb-5">
@@ -116,7 +123,7 @@ console.log("consultation ", consultation)
         <form onSubmit={handleSubmit} autoComplete="off">
         <div>
           <label>User</label>
-          <input type='text' name='user' onChange={handleChange} value={newQuotation.user} readOnly></input> id
+          <input type='text' name='user' onChange={handleChange} value={newQuotation.user} disabled></input> id
         </div>
         <div>
           <label>company</label>
@@ -125,9 +132,9 @@ console.log("consultation ", consultation)
         <div className="mb-3 pb-1">
   <label htmlFor="consultation" id="consultation" className="form-label">Consultation: </label> 
   <select  name="consultation" className="form-select" onChange={handleConsultationChange} required>
-    {/* <option value="" disabled>
+    <option value="" disabled>
       Select a monitored Consultation
-    </option> */}
+    </option>
     { consultation.length > 0 ?
 
     consultation.map((consult) => (

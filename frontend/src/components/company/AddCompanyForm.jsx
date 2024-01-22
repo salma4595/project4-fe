@@ -9,7 +9,8 @@ export default function AddCompanyForm(props) {
   const autocompleteRef = useRef(null);
   const [file, setFile] = useState(null);
   const [imageName, setImageName] = useState(null);
-
+  newCompany.user = sessionStorage.getItem("UserId");
+ 
   const successCallback = (position) => {
     console.log("coor",position.coords);
     const newLocation = {
@@ -121,7 +122,13 @@ export default function AddCompanyForm(props) {
             onChange={handleChange}
           />
         </div>
+         <div className="mb-3"> 
+         <div>
+          <label>User</label>
+          <input type='text' name='user' onChange={handleChange} value={newCompany.user} disabled></input>
+        </div>
 
+         </div>
         <div className="mb-3">
       <label htmlFor="company_description" className="form-label">
         Description of the Company:

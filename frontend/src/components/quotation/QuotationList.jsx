@@ -30,7 +30,7 @@ const loadQuotationList = () => {
     // setQuotation(dummyData)
 Axios.get("/quotation/index")
 .then((response) => {
-console.log(response);
+console.log("setQuotation",response);
 setQuotation(response.data.quotations);
 })
 .catch((error) => {
@@ -45,6 +45,7 @@ const addQuotation = (quotation) => {
         console.log(res);
                     console.log("Quotation Added!");
                     loadQuotationList();
+                    setIsCreateQuotation(false)
                 })
                 .catch((err) =>{
                     console.log("Error in adding Quotation !");
@@ -101,18 +102,18 @@ Axios.get(`/quotation/delete?id=${id}`)
 
 //return arrow function with normal bracket as it treats this as one value
 const allQuotation = quotations.map((quotation, index) => (
-
-<tr key={index}>
+    
+    <tr key={index}>
     {/* <Quotation name={quotation.name} emailAddress={quotation.emailAddress} index={index} /> */}
-    {props.user?.userType == 3 ? ( quotation.user == props.user._id ? 
+    {props.user?.userType == "User" ? ( quotation.user == props.user._id ? 
     <> 
-        <Quotation {...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
+        <Quotation { ...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
     </>
     :
     <><br /><p className="text-white">  End of Contribution List</p></>
     ) : 
     <> 
-        <Quotation {...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
+        <Quotation { ...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
     </>
     }
 </tr>    

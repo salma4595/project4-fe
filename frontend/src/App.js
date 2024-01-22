@@ -1,6 +1,7 @@
-
 import React, { useEffect, useState } from "react";
 import ConsultationList from './components/consultation/consultationList'
+
+//import "bootstrap/dist/css/bootstrap.min.css";
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -25,7 +26,6 @@ import HomePage from './components/homePage/HomePage';
 import CompanyDetails from './components/company/CompanyDetails';
 import QuotationList from './components/quotation/QuotationList';
 import AppointmentList from './components/appointment/AppointmentList';
-// import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -120,6 +120,7 @@ function App() {
     <>
     {isAuth ? ( 
     <div>
+
        <Link to="/" className="btn">Home</Link>&nbsp;
       <Link to="/logout" onClick={onLogoutHandler} className="btn">Logout</Link>
       <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/AddCompanyForm">Add Company</Link> &nbsp;
@@ -136,6 +137,7 @@ function App() {
     </div>
     ) : (
       <>
+      
     {/*<Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/AddCompanyForm">Add Company</Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/JoinRequestForm">Join As a Company</Link> &nbsp;
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/Companies">Show Companies</Link> &nbsp;*/}
@@ -147,9 +149,9 @@ function App() {
     {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
     {/*<Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
      <Link className="nav-link text-white d-inline" style={{padding:10}} to="/consultation/consultationList">Consultation List</Link> &nbsp;
-
+*/}
     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;*/}
+    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
     </>
     )}
     <Routes>
@@ -159,8 +161,10 @@ function App() {
       <Route path='/company/Companies' element={<Companies/>} />
       <Route path='/Category/CategoryList' element={<CategoryList/>} />
       <Route path='/user/SignUpForm' element={<SignUpForm/>} />
+      
       <Route path='/user/SignInForm'  element={isAuth &&userInfo? ( <HomePage />) : (<SignInForm login={loginHandler} /> )} />
-      <Route path='/user/UserList' element={<UserList/>} />
+      <Route path='/user/UserList' element={isAuth &&userInfo === "Admin"? ( <UserList />) : (<SignInForm login={loginHandler} /> )} />
+     
       <Route path='/user/UserProfile' element={<UserProfile/>} />
       <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
       <Route path="/company/CompanyDetails/:id" element={<CompanyDetails></CompanyDetails>} />
@@ -182,44 +186,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
