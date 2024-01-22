@@ -123,7 +123,7 @@ const [formData, setFormData] = useState({});
         <form onSubmit={handleSubmit} autoComplete="off">
         <div>
           <label>User</label>
-          <input type='text' name='user' onChange={handleChange} value={newQuotation.user} readOnly></input> id
+          <input type='text' name='user' onChange={handleChange} value={newQuotation.user} disabled></input> id
         </div>
         <div>
           <label>company</label>
