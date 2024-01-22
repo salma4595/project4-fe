@@ -1,8 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import ConsultationList from './components/consultation/consultationList'
-// import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Axios from "axios";
@@ -165,7 +164,7 @@ function App() {
       <Route path='/user/UserProfile' element={<UserProfile/>} />
       <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
       <Route path="/company/CompanyDetails/:id" element={<CompanyDetails></CompanyDetails>} />
-      <Route path='/consultation/consultationList' element={!!currentUser?._id?<ConsultationList user_fullName={currentUser?.user_fullName} ></ConsultationList>:<></>} />
+      <Route path='/consultation/consultationList' element={<ConsultationList user_fullName={currentUser?.user_fullName} ></ConsultationList>} />
      
       {/* <Route path='/user/EditProfile' element={<EditProfile/>} /> */}
       <Route path='/quotation/QuotationList' element={<QuotationList/>} />

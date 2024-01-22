@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Map from './Map';
-
+import Axios from 'axios'
 
 
 export default function ConsultationEditForm(props){
@@ -13,6 +13,28 @@ const autocompleteRef = useRef(null);
 // for image update
 const [file, setFile] = useState(props.presentConsultation.Consultation_image);
 const [formKey, setFormKey] = useState(0)
+const [users, setUsers] = useState([])
+
+const fechingUser = () => {
+  Axios.get('/user/index')
+  
+  .then(res => {
+    setUsers(res.data.users)
+  })
+  .catch(err => {
+    console.log('error')
+    console.log(err);
+  })
+}
+
+useEffect(() => {
+  fechingUser();
+}, [editConsultation.user_id]);
+
+
+
+
+
 
 
 const resetForm = () => {
@@ -99,8 +121,24 @@ const errorCallback = (error) => {
   return (
    <>
    <h2 className='text-center'>Edit Consultation</h2>
-   <form onSubmit={handleSubmit}>
+   <form key={formKey}  onSubmit={handleSubmit}>
     
+    
+   <div className='row d-flex justify-content-center align-items-center'>
+          <div className='col-md-6'>
+            <label>Client</label>
+            <input
+              type='text'
+              value={props.user_fullName}
+              disabled
+              className='form-control'
+            />
+          </div>
+        </div>
+    <br></br>
+
+  
+
    <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
     <label>Description</label>

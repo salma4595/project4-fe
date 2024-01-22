@@ -109,7 +109,7 @@ const handleMapClick = (selectedLocation) => {
   formData.append('consultation_description', createConsultation.consultation_description);
   formData.append('consultation_land_area', createConsultation.consultation_land_area);
   formData.append('consultation_land_dimensions', createConsultation.consultation_land_dimensions);
-  formData.append('consultation_land_map', createConsultation.consultation_land_map || '');
+  formData.append('consultation_land_map', createConsultation.consultation_land_map);
   
 
     if (destination){
@@ -118,7 +118,7 @@ const handleMapClick = (selectedLocation) => {
       formData.append('coordinates', coordinates)
     }
 
-    formData.append('')
+    
 
 
   props.addAConsultation(formData);
@@ -136,7 +136,7 @@ const handleMapClick = (selectedLocation) => {
 
    <div className='row d-flex justify-content-center align-items-center'>
           <div className='col-md-6'>
-            <label>Name</label>
+            <label>Client</label>
             <input
               type='text'
               value={props.user_fullName}
@@ -145,8 +145,7 @@ const handleMapClick = (selectedLocation) => {
             />
           </div>
         </div>
-
-   
+   <br></br>
     
    <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
