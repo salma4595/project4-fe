@@ -7,11 +7,12 @@ import CategoryEditForm from './CategoryEditForm';
 
 
 
+
 export default function CategoryList() {
     const [categories, setCategories] = useState([]);
     const [isEdit, setIsEdit] = useState(false);
     const [currentCategory, setCurrentCategory] = useState({});
-   
+    
     useEffect(() => {
         loadCategoriesList();
     },[]);
@@ -50,7 +51,10 @@ export default function CategoryList() {
     const UpdateCategory = (category) => {
         Axios.put("/categories/update",category)
         .then(()=>{
+            
             loadCategoriesList();
+            setIsEdit(false);
+            
         })
         .catch((err) => {
             console.log(err);
@@ -70,6 +74,7 @@ export default function CategoryList() {
         
             <Category 
                 key={index}
+                _id={category._id}
                 name={category.name}
                 image={category.categories_image}
                 editView={editView}
@@ -95,12 +100,14 @@ export default function CategoryList() {
         {allCategories}
         </div>
     
-        {(!isEdit) ?
+        {(!isEdit) ?(
+
+        
         <CategoryCreateForm addCategory={addCategory}  />
         
-         :
+         ) :(
         <CategoryEditForm key={currentCategory._id} category={currentCategory} updatedCategory={UpdateCategory}  />
-        }
+        )}
          </div>
     
         </>

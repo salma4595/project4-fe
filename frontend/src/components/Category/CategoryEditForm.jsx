@@ -22,10 +22,24 @@ export default function CategoryEditForm(props) {
     const formData = new FormData();
     formData.append('categories_image', file);
     formData.append('name', editCategory.name);
+    formData.append('_id', editCategory._id);
 
-    console.log(formData); // Move this line inside the function
+    console.log(formData); 
+    Axios.post('/categories/update',formData)
+     .then(() => {
+      props.updatedCategory(editCategory);
+      navigate('/categories/index');
+     })
+     .catch((err) => {
+      console.log(err);
+     })
+    
+event.target.reset();
 
-    Axios.put('/categories/update', formData, {
+  
+};
+
+    {/*Axios.put('/categories/update', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -41,7 +55,7 @@ export default function CategoryEditForm(props) {
       });
 
     event.target.reset();
-  };
+  };*/}
 
   const handleImage = (e) => {
     console.log(e.target.files[0]);
