@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 export default function AppointmentCreateForm(props) {
 
     const [newAppointment , setNewAppointment] = useState({});
+    const [userId, setUserId] = useState('');
     
     const handleChange = (event) => {
 
@@ -31,7 +32,7 @@ export default function AppointmentCreateForm(props) {
       // i cannot get the index for appointment
       <div>
           <label>User</label>
-          <input type='text' htmlFor='user' onChange={handleChange}></input>
+          <input type='text' htmlFor='user' value={userId} onChange={e => setUserId(e.target.value)} readOnly></input>
         </div>
         <div>
           <label>Quotation</label>

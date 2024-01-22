@@ -67,7 +67,7 @@ const addAppointment = (appointment) => {
             }
             
             const updateAppointment = (appointment) =>{
-                Axios.put('//appointment/update',appointment)
+                Axios.put('/appointment/update',appointment)
                 .then(res =>{
                     console.log(res);
                     console.log("Loaded Appointment updated");
