@@ -9,6 +9,7 @@ export default function AppointmentCreateForm(props) {
     const [selectConsultation , setSelectConsultation] = useState("");
     const [selectedConsultationInfo , setSelectedConsultationInfo] = useState();
     const [consultation, setConsultation] = useState([]);
+    console.log(newAppointment.user);
     newAppointment.user = sessionStorage.getItem("UserId");
    
     
@@ -93,7 +94,7 @@ export default function AppointmentCreateForm(props) {
       // i cannot get the index for appointment
       <div>
           <label>User</label>
-          <input type='text' htmlFor='user' value={newAppointment.user} onChange={e => setUserId(e.target.value)} readOnly></input>
+          <input type='text' htmlFor='user' value={newAppointment.user} readOnly></input>
         </div>
         {/* <div>
           <label>newAppointment.consolation</label>

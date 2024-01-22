@@ -11,7 +11,7 @@ export default function HomePage() {
       <h1 className="display-3 fw-bold title">WeBuild</h1>
       <h3 className="fw-normal text-muted mb-3 titlep">Hit The Road With Perfection</h3>
       <div className="d-flex gap-3 justify-content-center lead fw-normal">
-        <Link className="homepage" to="/exhibition/index">Categories </Link>
+        <Link className="homepage" to="/Category/CategoryList">Categories </Link>
       </div>
 
     </div>
