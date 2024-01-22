@@ -11,7 +11,8 @@ const autocompleteRef = useRef(null);
 // adding states for image upload
 const [file, setFile] = useState(null);
 const [imageUrl, setImageUrl] = useState('');
-// adding another state for resetting form 
+
+// adding another state for resetting form, reason is the other method didnt work
 const [formKey, setFormKey] = useState(0)
 
 
@@ -20,21 +21,23 @@ const resetForm = () => {
   setCreateConsultation({});
   setFile(null);
   setDestination(null);
-  // Reset other relevant state variables
+ 
   setFormKey((prevKey) => prevKey + 1);
 };
 
-
-
-const successCallback = (position) => {
-  console.log("coor",position.coords);
-  const newLocation = {
-    latitude:position.coords.latitude,
-    longitude: position.coords.longitude
-  }
-  setLocation(newLocation)
-  console.log("newLocation", newLocation)
+const handleMapClick = (selectedLocation) => {
+  setDestination(selectedLocation);
 };
+
+// const successCallback = (position) => {
+//   console.log("coor",position.coords);
+//   const newLocation = {
+//     latitude:position.coords.latitude,
+//     longitude: position.coords.longitude
+//   }
+//   setLocation(newLocation)
+//   console.log("newLocation", newLocation)
+// };
 
 const errorCallback = (error) => {
   console.log(error);
@@ -179,7 +182,7 @@ const errorCallback = (error) => {
   <label htmlFor="consultation_land_map" className="form-label">
   
   </label>
-  <Map destination={destination} key={destination && destination.lat || 2} />
+  <Map destination={destination} key={destination && destination.lat || 2}  onMapClick={handleMapClick} />
   <button className='d-flex justify-content-center'
   type="button" onClick={fetchCurrentLocation}>Get Current Location</button>
 </div>

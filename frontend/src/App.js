@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import ConsultationList from './components/consultation/consultationList'
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -134,7 +134,7 @@ function App() {
 <Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
 <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
     <Routes>
-    <Route path="/" element={<HomePage></HomePage>} />
+    <Route path="/" element={<ConsultationList></ConsultationList>} />
       <Route path="/company/AddCompanyForm" element={<AddCompanyForm/>} />
       <Route path="/company/JoinRequestForm" element={<JoinRequestForm/>} />
       <Route path='/company/Companies' element={<Companies/>} />
