@@ -63,10 +63,6 @@ const resetForm = () => {
   setFormKey((prevKey) => prevKey + 1);
 };
 
-const handleMapClick = (selectedLocation) => {
-  setDestination(selectedLocation);
-};
-
 
 
 
@@ -101,23 +97,6 @@ const handleUnitChange = (e, dimension) => {
 
 
 
-  const fetchCurrentLocation = async () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setDestination({ lat: latitude, lng: longitude });
-          console.log(latitude, longitude);
-        },
-        (error) => {
-          console.error('Error getting current location:', error);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -131,14 +110,14 @@ const handleUnitChange = (e, dimension) => {
   formData.append('width',createConsultation.width);
   formData.append('length',createConsultation.length);
   
-  formData.append('consultation_land_map', createConsultation.consultation_land_map);
+  // formData.append('consultation_land_map', createConsultation.consultation_land_map);
   
 
-    if (destination){
-      const { lat, lng} = destination
-      const coordinates = `${destination.lat},${destination.Ing}`
-      formData.append('coordinates', coordinates)
-    }
+    // if (destination){
+    //   const { lat, lng} = destination
+    //   const coordinates = `${destination.lat},${destination.Ing}`
+    //   formData.append('coordinates', coordinates)
+    // }
 
     
 
@@ -230,48 +209,8 @@ const handleUnitChange = (e, dimension) => {
   <br></br>
 
 
-  {/* <div className='row d-flex justify-content-center align-items-center'>
-  <div className='col-md-6'>
-  <label>Land Dimensions</label>
-  <input type='text' name='consultation_land_dimensions' value={createConsultation.consultation_land_dimensions} onChange={handleChange} className='form-control'></input>
-  </div>
-  </div> */}
 
-  <br></br>
-
-
-
-
-
-
-
-
-
-
- 
-
-<div className='row d-flex justify-content-center align-items-center'>
-  <div className='col-md-6'>
-    <label>Land Map</label>
-    <div className="mb-3">
-  <label htmlFor="consultation_land_map" className="form-label">
-  
-  </label>
-  <Map destination={destination} key={destination && destination.lat || 2}  onMapClick={handleMapClick} />
-  <button className='d-flex justify-content-center'
-  type="button" onClick={fetchCurrentLocation}>Get Current Location</button>
-</div>
-  </div>
-</div>
-
-<br></br>
-
-
-
-
-
-
-<div className="row d-flex justify-content-center align-items-center">
+  <div className="row d-flex justify-content-center align-items-center">
   <div className="col-md-6">
     <label>Land Dimensions</label>
     <div className="d-flex">
@@ -330,10 +269,6 @@ const handleUnitChange = (e, dimension) => {
     </div>
   </div>
 </div>
-
-
-
-
 
 
 

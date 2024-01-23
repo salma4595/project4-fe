@@ -74,31 +74,12 @@ const resetForm = () => {
     },
   },
   });
-  
+
   setFile(null);
   setDestination(null);
   // Reset other relevant state variables
   setFormKey((prevKey) => prevKey + 1);
 };
-
-
-
-
-
-const successCallback = (position) => {
-  console.log("coor",position.coords);
-  const newLocation = {
-    latitude:position.coords.latitude,
-    longitude: position.coords.longitude
-  }
-  setLocation(newLocation)
-  console.log("newLocation", newLocation)
-};
-
-const errorCallback = (error) => {
-  console.log(error);
-};
-
 
 
   const handleChange = (e) => {
@@ -117,24 +98,7 @@ const errorCallback = (error) => {
     setFile(e.target.files[0]);
   };
 
-  const fetchCurrentLocation = async () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const { latitude, longitude } = position.coords;
-          setDestination({ lat: latitude, lng: longitude });
-          console.log(latitude, longitude);
-        },
-        (error) => {
-          console.error('Error getting current location:', error);
-        }
-      );
-    } else {
-      console.error('Geolocation is not supported by this browser.');
-    }
-  };
-
-
+ 
   const handleSubmit = (e) => {
     e.preventDefault()
     
@@ -147,7 +111,7 @@ const errorCallback = (error) => {
   formData.append('consultation_land_area', editConsultation.consultation_land_area);
   formData.append('width',editConsultation.width);
   formData.append('length',editConsultation.length);
-  formData.append('consultation_land_map', editConsultation.consultation_land_map);
+  // formData.append('consultation_land_map', editConsultation.consultation_land_map);
   // formData.append('consultation_land_autocad', createConsultation.consultation_land_autocad);
 
     props.updateTheview(formData)
@@ -232,12 +196,6 @@ const errorCallback = (error) => {
 
   <br></br>
 
-  {/* <div className='row d-flex justify-content-center align-items-center'>
-  <div className='col-md-6'>
-  <label>Land Dimensions</label>
-  <input type='text' name='consultation_land_dimensions' value={editConsultation.consultation_land_dimensions} onChange={handleChange} className='form-control'></input>
-  </div>
-  </div> */}
 
 
 <div className="row d-flex justify-content-center align-items-center">
@@ -301,25 +259,7 @@ const errorCallback = (error) => {
 </div>
 
 
-  <br></br>
-
-  
-<div className='row d-flex justify-content-center align-items-center'>
-  <div className='col-md-6'>
-    <label>Land Map</label>
-    <div className="mb-3">
-  <label htmlFor="consultation_land_map" className="form-label">
-  
-  </label>
-  <Map destination={destination} key={destination && destination.lat || 2} />
-  <button className='d-flex justify-content-center'
-  type="button" onClick={fetchCurrentLocation}>Get Current Location</button>
-</div>
-  </div>
-</div>
-
-  <br></br>
-
+ 
  
 
   <br></br>
