@@ -264,7 +264,7 @@ function App() {
               element={
               <JoinRequestForm key={currentUser?._id || 1} user={currentUser} />}
             />
-            <Route path="/company/Companies" element={<Companies />} />
+            <Route path="/company/category/:id" element={<Companies />} />
             <Route path="/Category/CategoryList" element={<CategoryList />} />
             <Route
               path="/user/UserList"
@@ -321,7 +321,7 @@ function App() {
         ) : ( // else
           <>
             <Route path="/" element={<HomePage />} />
-            <Route path="/company/Companies" element={<Companies />} />
+            <Route path="/company/category/:id" element={<Companies />} />
             <Route path="/Category/CategoryList" element={<CategoryList />} />
             <Route path="/user/SignUpForm" element={<SignUpForm />} />
 
