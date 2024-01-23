@@ -8,12 +8,16 @@ export default function Category(props) {
 
   return( 
     <>
-    <Link to="/company/Companies">
+   
     <div className="col-md-4" >
          <div className="card shadow-sm">
+         <Link to={`/company/Companies?Categories=${props._id}`}>
          <img src={props.image} className="card-img-top" style={{ width: "50%", height: "50%", objectFit: "contain" }} alt={props.name} />
+         </Link>
+           
           <div className="card-body text-bg-dark">
             <h5 className="card-title">{props.name}</h5>
+          
            <div className='d-flex justify-content-between'>
            <div className="btn-group">
             <button  type="button" className="btn btn-sm btn-outline-light" onClick={()=> props.editView(props._id)}>Edit</button>
@@ -24,7 +28,7 @@ export default function Category(props) {
 
          </div>
     </div>
-    </Link>
+  
     
     </>
   )
