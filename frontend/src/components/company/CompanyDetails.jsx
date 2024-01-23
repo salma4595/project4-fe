@@ -60,7 +60,7 @@ export default function CompanyDetailPage(props) {
     </div>
         
         
-
+<Link  to={`/consultation/consultationCreateForm/${company._id}`}>Add Consultation</Link>
       
         
       </>

@@ -1,6 +1,8 @@
 import React, { useState , useRef, useEffect } from 'react';
 import Map from './Map';
-import Axios from 'axios'
+import Axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+import { useParams } from 'react-router-dom';
 
 export default function ConsultationCreateForm(props){
 // all the states
@@ -93,18 +95,26 @@ const handleUnitChange = (e, dimension) => {
     console.log(e.target.files[0]);
     setFile(e.target.files[0]);
   }
+  const getUser = () => {
+    const token = getToken();
+    return token ? jwtDecode(token).user : null;
+  };
+  const getToken = () => {
+    const token = sessionStorage.getItem("token");
+    return token;
+  };
 
-
-
+ const {id} = useParams()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+   
 
   const formData = new FormData();
-  
+ 
   formData.append('consultation_image', file);
 
-
+  formData.append('user_id', getUser().id);
+  formData.append('company', id);
   formData.append('consultation_description', createConsultation.consultation_description);
   formData.append('consultation_land_area', createConsultation.consultation_land_area);
   formData.append('width',createConsultation.width);
@@ -122,13 +132,26 @@ const handleUnitChange = (e, dimension) => {
     
 
 
-  props.addAConsultation(formData);
+  addConsultation(formData);
 
   resetForm()
  
-
+  e.preventDefault();
 
 };
+const addConsultation = (consultations) => {
+  Axios.post("/consultations/add", consultations, { headers: {'Content-Type': 'multipart/form-data'}})
+  .then(res =>{
+  console.log('Consultation has been sent') 
+
+})
+ 
+  .catch(err => {
+
+ console.log('Error cannot Add')
+console.log(err) })
+
+}
 
   return (
    <>
