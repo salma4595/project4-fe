@@ -101,7 +101,7 @@ export default function AddCompanyForm(props) {
     // formData.append("company_rate", newCompany.company_rate);
     formData.append("company_emailAddress", newCompany.company_emailAddress);
     formData.append("company_latitude", destination.lat);
-    formData.append("company_longtude", destination.lng);
+    formData.append("company_longitude", destination.lng);
     formData.append("UserId", newCompany.user);
     //saad modifction
     formData.append("Categories", newCompany.Categories);

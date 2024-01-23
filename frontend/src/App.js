@@ -1,55 +1,45 @@
 import React, { useEffect, useState } from "react";
-import ConsultationList from './components/consultation/consultationList'
-
+import ConsultationList from "./components/consultation/consultationList";
 //import "bootstrap/dist/css/bootstrap.min.css";
-
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 import Axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import logo from './logo.svg';
-import './App.css';
-import {Link} from 'react-router-dom'
-import { Routes } from 'react-router-dom';
-
-import { Route } from 'react-router-dom';
-import AddCompanyForm from './components/company/AddCompanyForm';
-import JoinRequestForm from './components/company/JoinRequestForm';
-import Companies from './components/company/Companies';
-import CategoryList from './components/Category/CategoryList';
-import SignUpForm from './components/user/SignUpForm';
-import SignInForm from './components/user/SignInForm';
+import { Link, Routes, Route } from "react-router-dom";
+import "./App.css";
+import CategoryList from "./components/Category/CategoryList";
+import AddCompanyForm from "./components/company/AddCompanyForm";
+import Companies from "./components/company/Companies";
+import JoinRequestForm from "./components/company/JoinRequestForm";
+import SignInForm from "./components/user/SignInForm";
+import SignUpForm from "./components/user/SignUpForm";
 // import EditProfile from './components/user/EditProfile';
-import UserProfile from './components/user/UserProfile';
-import UserList from './components/user/UserList';
-import HomePage from './components/homePage/HomePage';
-import CompanyDetails from './components/company/CompanyDetails';
-import QuotationList from './components/quotation/QuotationList';
-import AppointmentList from './components/appointment/AppointmentList';
+import Request from "./components/adminView/Request";
+import AppointmentList from "./components/appointment/AppointmentList";
+import CompanyDetails from "./components/company/CompanyDetails";
+import HomePage from "./components/homePage/HomePage";
+import QuotationList from "./components/quotation/QuotationList";
+import EditProfile from "./components/user/EditProfile";
+import UserList from "./components/user/UserList";
+import UserProfile from "./components/user/UserProfile";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-  const [user, setUser] = useState({});
-  const [userList, setUserList] = useState([user]);
+  const [userId, setUserId] = useState();
   const [currentUser, setCurrentUser] = useState();
-  const [userInfo,setUserInfo]=useState()
-
 
   useEffect(() => {
-    //const user = setUser();
     const user = getUser();
-    console.log("INIT USER",user);
+    console.log("INIT USER", user);
     if (user) {
-      console.log('user if', user);
+      console.log("user if", user);
       setIsAuth(true);
-      setUser(user);
-      // setUserInfo(user.id)
-      showUser(user.id)
+      setUserId(user.id);
+      showUser(userId);
     } else {
       localStorage.removeItem("token");
       setIsAuth(false);
-      setUser(null);
-      
+      setUserId(null);
     }
   }, []);
 
@@ -63,22 +53,17 @@ function App() {
       });
   };
 
-
   const loginHandler = (cred) => {
     Axios.post("/auth/signin", cred)
       .then((res) => {
-        console.log(res.data.token);
-        //Makes sure the token is Valid
+        console.log("res.data.token", res.data.token)
         let token = res.data.token;
         if (token != null) {
           localStorage.setItem("token", token);
           const user = getUser();
-          console.log(user);
-          sessionStorage.setItem("UserId", user.id);
           user ? setIsAuth(true) : setIsAuth(false);
-          user ? setUser(user) : setUser(null);
-          user ? showUser(user.id) : showUser(null)
-          // user ? setUserInfo(user.id) : setUserInfo(null)
+          user ? setUserId(user.id) : setUserId(null);
+          user ? showUser(user.id) : showUser(null);
         }
       })
       .catch((err) => {
@@ -97,91 +82,266 @@ function App() {
     e.preventDefault();
     localStorage.removeItem("token");
     setIsAuth(false);
-    setUser(null);
-    setUserInfo(null);
+    setUserId(null);
+    setCurrentUser(null);
   };
-  const showUser = (id) =>{
+  const showUser = (id) => {
     Axios.get(`/user/detail?id=${id}`)
-    .then((response) => {
-      console.log('user app.js',response)
-      let user = response.data.user
-      setCurrentUser(user)
-      setUserInfo(user)
-  })
-  .catch((err) => {
-      console.log(err)
-  })
-  }
-  const setHeaders =() =>{
-    return {headers:{Authorization:`Bearer ${getToken()}`}}
-  }
-
+      .then((response) => {
+        let user = response.data.user;
+        console.log('current user', user);
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const setHeaders = () => {
+    return { headers: { Authorization: `Bearer ${getToken()}` } };
+  };
+  const editUpdate = async (user) => {
+    try {
+      await Axios.put("/user/update", user, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      showUser(userId);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <>
-    {isAuth ? ( 
-    <div>
 
-       <Link to="/" className="btn">Home</Link>&nbsp;
-      <Link to="/logout" onClick={onLogoutHandler} className="btn">Logout</Link>
-      <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/AddCompanyForm">Add Company</Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/JoinRequestForm">Join As a Company</Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/Companies">Show Companies</Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserList"> User List </Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserProfile"> User Profile </Link> &nbsp;
-    {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
-     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
-     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/consultation/consultationList">Consultation List</Link> &nbsp;
+{/* currentUser?.userType === "Admin" ? ( */}
+      {isAuth && currentUser?.userType === "Admin"? (
+        <div>
+          <Link to="/" className="btn">
+            Home
+          </Link>
+          &nbsp;
+          <Link to="/logout" onClick={onLogoutHandler} className="btn">
+            Logout
+          </Link>
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/company/AddCompanyForm"
+          >
+            Add Company
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/company/JoinRequestForm"
+          >
+            Join As a Company
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/company/Companies"
+          >
+            Show Companies
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/user/UserList"
+          >
+            {" "}
+            User List{" "}
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/user/UserProfile"
+          >
+            {" "}
+            User Profile{" "}
+          </Link>{" "}
+          &nbsp;
+          {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/Category/CategoryList"
+          >
+            Category List
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/consultation/consultationList"
+          >
+            Consultation List
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/quotation/QuotationList"
+          >
+            {" "}
+            QuotationList{" "}
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/appointment/AppointmentList"
+          >
+            {" "}
+            Appointment List{" "}
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/adminView/Request"
+          >
+            {" "}
+            Request List{" "}
+          </Link>{" "}
+          &nbsp; &nbsp;
 
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
-    </div>
-    ) : (
-      <>
-      
-    {/*<Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/AddCompanyForm">Add Company</Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/JoinRequestForm">Join As a Company</Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/Companies">Show Companies</Link> &nbsp;*/}
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/SignUpForm"> Sign Up</Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/SignInForm"> Sign In</Link> &nbsp;
-    {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/EditProfile"> Edit Profile</Link> &nbsp; */}
-    {/*<Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserList"> User List </Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/user/UserProfile"> User Profile </Link> &nbsp;*/}
-    {/* <Link className="nav-link text-white d-inline" style={{padding:10}} to="/company/CompanyDetails"> Company Details </Link> &nbsp; */}
-    {/*<Link className="nav-link text-white d-inline" style={{padding:10}} to="/Category/CategoryList">Category List</Link> &nbsp;
-     <Link className="nav-link text-white d-inline" style={{padding:10}} to="/consultation/consultationList">Consultation List</Link> &nbsp;
-*/}
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/quotation/QuotationList"> QuotationList </Link> &nbsp;
-    <Link className="nav-link text-white d-inline" style={{padding:10}} to="/appointment/AppointmentList"> Appointment List </Link> &nbsp;
-    </>
-    )}
-    <Routes>
-    <Route path="/" element={<HomePage></HomePage>} />
-      <Route path="/company/AddCompanyForm" element={<AddCompanyForm/>} />
-      <Route path="/company/JoinRequestForm" element={<JoinRequestForm/>} />
-      <Route path='/company/Companies' element={<Companies/>} />
-      <Route path='/Category/CategoryList' element={<CategoryList/>} />
-      <Route path='/user/SignUpForm' element={<SignUpForm/>} />
-      
-      <Route path='/user/SignInForm'  element={isAuth &&userInfo? ( <HomePage />) : (<SignInForm login={loginHandler} /> )} />
-      <Route path='/user/UserList' element={isAuth &&userInfo === "Admin"? ( <UserList />) : (<SignInForm login={loginHandler} /> )} />
-     
-      <Route path='/user/UserProfile' element={<UserProfile/>} />
-      <Route path='/company/CompanyDetails' element={<CompanyDetails/>} />
-      <Route path="/company/CompanyDetails/:id" element={<CompanyDetails></CompanyDetails>} />
-      <Route path='/consultation/consultationList' element={<ConsultationList user_fullName={currentUser?.user_fullName} ></ConsultationList>} />
-     
-      {/* <Route path='/user/EditProfile' element={<EditProfile/>} /> */}
-      <Route path='/quotation/QuotationList' element={<QuotationList/>} />
-      <Route path='/appointment/AppointmentList' element={<AppointmentList/>} />
-      
-    </Routes>
-    <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
+        </div>
+      ) : (
+        <>
+                  <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/quotation/QuotationList"
+          >
+            {" "}
+            QuotationList{" "}
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/appointment/AppointmentList"
+          >
+            {" "}
+            Appointment List{" "}
+          </Link>{" "}
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/user/SignUpForm"
+          >
+            {" "}
+            Sign Up
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/user/SignInForm"
+          >
+            {" "}
+            Sign In
+          </Link>{" "}
+          &nbsp;
+        </>
+      )}
+      <Routes>
+        {isAuth ? (
+          <>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="/company/AddCompanyForm"
+              element={<AddCompanyForm />}
+            />
+            <Route
+              path="/company/JoinRequestForm"
+              element={
+              <JoinRequestForm key={currentUser?._id || 1} user={currentUser} />}
+            />
+            <Route path="/company/Companies" element={<Companies />} />
+            <Route path="/Category/CategoryList" element={<CategoryList />} />
+            <Route
+              path="/user/UserList"
+              element={
+                currentUser?.userType === "Admin" ? (
+                  <UserList />
+                ) : (
+                  <HomePage />
+                )
+              }
+            />
+            <Route
+              path="/adminView/Request"
+              element={
+                currentUser?.userType === "Admin" ? (
+                  <Request />
+                ) : (
+                  <HomePage />
+                )
+              }
+            />
+
+            <Route
+              path="/user/UserProfile"
+              element={<UserProfile {...currentUser} />}
+            />
+            <Route
+              path="/user/EditProfile"
+              element={<EditProfile {...currentUser} editUpdate={editUpdate} />}
+            />
+            <Route
+              path="/company/CompanyDetails"
+              element={<CompanyDetails />}
+            />
+            <Route
+              path="/company/CompanyDetails/:id"
+              element={<CompanyDetails />}
+            />
+            <Route
+              path="/consultation/consultationList"
+              element={
+                <ConsultationList user_fullName={currentUser?.user_fullName} />
+              }
+            />
+            <Route
+              path="/quotation/QuotationList"
+              element={<QuotationList />}
+            />
+            <Route
+              path="/appointment/AppointmentList"
+              element={<AppointmentList />}
+            />
+          </>
+        ) : ( // else
+          <>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/company/Companies" element={<Companies />} />
+            <Route path="/Category/CategoryList" element={<CategoryList />} />
+            <Route path="/user/SignUpForm" element={<SignUpForm />} />
+
+            <Route
+              path="/user/SignInForm"
+              element={<SignInForm login={loginHandler} />}
+            />
+            <Route
+              path="/company/CompanyDetails/:id"
+              element={<CompanyDetails />}
+            />
+          </>
+        )}
+      </Routes>
+      <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
         <div className="container">
           <p className="mb-1 text-white">&copy; 2024 | Voiture App </p>
         </div>
       </footer>
     </>
-    
   );
 }
 

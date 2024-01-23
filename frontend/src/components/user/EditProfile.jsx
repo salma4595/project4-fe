@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { useNavigate } from 'react-router-dom'
 
 export default function EditProfile(props) {
-  const [user, setUser] = useState(props.user);
+  const [user, setUser] = useState();
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    Axios.get(`/user/edit?id=${props.user._id}`)
+    Axios.get(`/user/edit?id=${props._id}`)
       .then(response => {
         setUser(response.data.user);
       })
       .catch(error => {
         console.error('Error fetching users:', error);
       });
-  }, [props.user._id]);
+  }, [props._id]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,8 +41,17 @@ export default function EditProfile(props) {
   
   const submitChange = async (e) => {
     e.preventDefault();
-    await props.EditUpdate(user);
-    e.target.reset();
+      const formData = new FormData();
+      formData.append("_id", user._id);
+      formData.append("user_image", file);
+      formData.append("user_fullName", user.user_fullName);
+      formData.append("user_phoneNumber", user.user_phoneNumber);
+      formData.append("user_emailAddress", user.user_emailAddress);
+       formData.append("user_password", user.user_password);
+      
+    
+    await props.editUpdate(formData);
+    navigate("/user/UserProfile");
   };
   
 
@@ -58,7 +69,7 @@ export default function EditProfile(props) {
               required
               onChange={handleChange}
               className="form-control"
-              value={user.user_fullName || ''}
+              value={user?.user_fullName || ''}
             />
           </div>
 
@@ -70,7 +81,30 @@ export default function EditProfile(props) {
               required
               onChange={handleChange}
               className="form-control"
-              value={user.user_phoneNumber || ''}
+              value={user?.user_phoneNumber || ''}
+            />
+          </div>
+          
+          <div className="form-group">
+            <label>Email Address</label>
+            <input
+              type="email"
+              name="user_emailAddress"
+              required
+              onChange={handleChange}
+              className="form-control"
+              value={user?.user_emailAddress || ''}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Image</label>
+            <input
+              type="file"
+              name="user_image"
+              required
+              onChange={handleImage}
+              className="form-control"
             />
           </div>
 

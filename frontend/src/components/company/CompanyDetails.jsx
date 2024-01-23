@@ -19,9 +19,10 @@ export default function CompanyDetailPage(props) {
     Axios
       .get(`/company/detail?id=${companyId}`)
       .then(response => {
-        console.log(response);
+        console.log('response', response);
         let lat = parseFloat(response.data.company.company_latitude);
-        let long = parseFloat(response.data.company.company_longtude);
+        let long = parseFloat(response.data.company.company_longitude);
+        console.log('lat', lat, '\nlong', long);
         if(isNaN(lat)){
           lat = 0;
         }
@@ -48,7 +49,7 @@ export default function CompanyDetailPage(props) {
           <div key={company._id} className="card mb-3">
             <div className="card-body">
               <h2 className="card-title">Company Name: {company.company_name}</h2>
-              <img src={company.company_image} alt={company.company_name} className="card-img-top" style={{ width: "50vw", height: "100%", objectFit: "cover" }} />
+              <img src={company.company_images} alt={company.company_name} className="card-img-top" style={{ width: "50vw", height: "100%", objectFit: "cover" }} />
               <p className="card-text">Company Description: {company.company_description}</p>
               <p className="card-text">Business Email-Address: {company.company_emailAddress}</p>
               <p className="card-text">Business Contacts: {company.company_phoneNumber}</p>
