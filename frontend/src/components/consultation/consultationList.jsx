@@ -99,6 +99,7 @@ export default function ConsultationList(props){
 
 const theConsultataionRound = consultations.map((consultation, index) => (
   <tr key={index}>
+    
     <Consultation {...consultation}  editForm = {editConsultation}  deleteForm = {deleteConsultation}></Consultation>
 
   </tr>
@@ -116,9 +117,9 @@ return(
               <th>Description</th>
               <th>Location Image</th>
               <th>Land Area</th>
-              <th>Land Dimensions</th>
+              <th>width x length</th>
               <th>Land Map</th>
-              <th>Land Autocad</th>
+             
              <th>Edit</th>
              <th>Delete</th>
             </tr>   
