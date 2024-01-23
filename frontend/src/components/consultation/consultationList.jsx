@@ -7,7 +7,6 @@ import ConsultationCreateForm from './consultationCreateForm';
 import ConsultationEditForm from './consultationEditForm';
 
 export default function ConsultationList(props){
-
     const [consultations, setConsultations] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [currentConsultations, setCurrentConsultations] = useState({})

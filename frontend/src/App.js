@@ -22,6 +22,7 @@ import QuotationList from "./components/quotation/QuotationList";
 import EditProfile from "./components/user/EditProfile";
 import UserList from "./components/user/UserList";
 import UserProfile from "./components/user/UserProfile";
+import RequestList from "./components/adminView/RequestList";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -35,7 +36,7 @@ function App() {
       console.log("user if", user);
       setIsAuth(true);
       setUserId(user.id);
-      showUser(userId);
+      showUser(user.id);
     } else {
       localStorage.removeItem("token");
       setIsAuth(false);
@@ -210,6 +211,9 @@ function App() {
             Request List{" "}
           </Link>{" "}
           &nbsp; &nbsp;
+          <Link to="/logout" onClick={onLogoutHandler} className="btn">
+            Logout
+          </Link>
 
         </div>
       ) : (
@@ -262,7 +266,8 @@ function App() {
             <Route
               path="/company/JoinRequestForm"
               element={
-              <JoinRequestForm key={currentUser?._id || 1} user={currentUser} />}
+                currentUser&&
+              <JoinRequestForm user={currentUser} />}
             />
             <Route path="/company/category/:id" element={<Companies />} />
             <Route path="/Category/CategoryList" element={<CategoryList />} />
@@ -280,7 +285,7 @@ function App() {
               path="/adminView/Request"
               element={
                 currentUser?.userType === "Admin" ? (
-                  <Request />
+                  <RequestList />
                 ) : (
                   <HomePage />
                 )
@@ -305,8 +310,8 @@ function App() {
             />
             <Route
               path="/consultation/consultationList"
-              element={
-                <ConsultationList user_fullName={currentUser?.user_fullName} />
+              element={!!currentUser &&
+                <ConsultationList user_fullName={currentUser.user_fullName} />
               }
             />
             <Route
