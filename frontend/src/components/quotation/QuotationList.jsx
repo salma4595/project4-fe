@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom'; // Import the Link component from react-router-dom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,11 +21,25 @@ const[isEditQuotation,setIsEditQuotation]=useState(false);
 
 // const passToken = passedToken;
 
+const {id} = useParams()
+console.log("id", id )
+// const [editCompany, setEditCompany] = useState({});
+// const [isEdit,setIsEdit]=useState(false);
 useEffect(() => {
-//call API
-loadQuotationList();
+    // Fetch companys from the API
+    Axios.get(`/quotation/get?user_id=${id}`)
+      .then(response => {
+        setQuotation(response.data.quotations);
+      })
+      .catch(error => {
+        console.error('Error fetching quotations:', error);
+      });
+  }, []);
+// useEffect(() => {
+// //call API
+// loadQuotationList();
 
-},[]); //this end array is the conditional option
+
 
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
@@ -109,6 +123,8 @@ const allQuotation = quotations.map((quotation, index) => (
     {/* <Quotation name={quotation.name} emailAddress={quotation.emailAddress} index={index} /> */}
     {props.user?.userType == "User" ? ( quotation.user == props.user._id ? 
     <> 
+    
+   
         <Quotation { ...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
     </>
     :

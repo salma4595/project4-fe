@@ -310,7 +310,7 @@ function App() {
               }
             />
             <Route
-              path="/quotation/QuotationList"
+              path="/quotation/QuotationList/user/:id"
               element={<QuotationList />}
             />
             <Route
