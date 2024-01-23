@@ -33,7 +33,7 @@ export default function JoinRequestForm(props) {
     setNewRequest((prevRequest) => ({
       ...prevRequest,
       [attributeToChange]: newValue,
-      "User": user.id,
+      "User": user._id,
     }));
 
 

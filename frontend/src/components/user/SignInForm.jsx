@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function SignInForm(props) {
+
+  const navigate = useNavigate()
 
     const [newUser, setNewUser] = useState({});
 
@@ -15,6 +18,7 @@ export default function SignInForm(props) {
         e.preventDefault();
         props.login(newUser);
         e.target.reset();
+        navigate('/')
     }
 
   return (
