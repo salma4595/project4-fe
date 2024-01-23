@@ -39,7 +39,7 @@ export default function RequestList(props) {
         Axios.put('/user/update',{_id,userType: "CompanyOwner"})
         .then(res=> console.log(res))
         .catch(err => console.log(err))
-        setUserType('SubAdmin');
+        setUserType('CompanyOwner');
       };
     
     const addRequest = (request) => {

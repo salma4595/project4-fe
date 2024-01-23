@@ -8,7 +8,7 @@ export default function JoinRequestForm(props) {
   console.log(props)
 
   const [newRequest, setNewRequest] = useState({
-    request_exhibitionName: '',
+    request_CompanyName: '',
     request_message: '',
     request_CR: '',
   });
