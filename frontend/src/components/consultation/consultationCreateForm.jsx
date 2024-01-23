@@ -4,7 +4,17 @@ import Axios from 'axios'
 
 export default function ConsultationCreateForm(props){
 // all the states
-const [createConsultation, setCreateConsultation] = useState({})
+const [createConsultation, setCreateConsultation] = useState({consultation_land_dimensions: {
+  width: {
+    unit: 'm', // Default unit (you can change it to the desired default)
+  },
+  length: {
+    unit: 'm', // Default unit (you can change it to the desired default)
+  },
+},
+});
+
+
 // for map
 const [destination, setDestination] = useState(null);
 const [location, setLocation] = useState("");
@@ -38,7 +48,15 @@ useEffect(() => {
 
 
 const resetForm = () => {
-  setCreateConsultation({});
+  setCreateConsultation({consultation_land_dimensions: {
+    width: {
+      unit: 'm', // Default unit (you can change it to the desired default)
+    },
+    length: {
+      unit: 'm', // Default unit (you can change it to the desired default)
+    },
+  },
+  });
   setFile(null);
   setDestination(null);
  
@@ -50,27 +68,29 @@ const handleMapClick = (selectedLocation) => {
 };
 
 
-// might delete
-// const successCallback = (position) => {
-//   console.log("coor",position.coords);
-//   const newLocation = {
-//     latitude:position.coords.latitude,
-//     longitude: position.coords.longitude
-//   }
-//   setLocation(newLocation)
-//   console.log("newLocation", newLocation)
-// };
-// const errorCallback = (error) => {
-//   console.log(error);
-// };
 
 
+const handleUnitChange = (e, dimension) => {
+  const selectedUnit = e.target.value;
+
+  setCreateConsultation((prevConsultation) => ({
+    ...prevConsultation,
+    consultation_land_dimensions: {
+      ...prevConsultation.consultation_land_dimensions,
+      [dimension]: {
+        ...prevConsultation.consultation_land_dimensions[dimension],
+        unit: selectedUnit,
+      },
+    },
+  }));
+};
 
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCreateConsultation({ ...createConsultation, [name]: value });
+    console.log(createConsultation)
   };
 
   const handleImage = (e) => {
@@ -108,7 +128,9 @@ const handleMapClick = (selectedLocation) => {
 
   formData.append('consultation_description', createConsultation.consultation_description);
   formData.append('consultation_land_area', createConsultation.consultation_land_area);
-  formData.append('consultation_land_dimensions', createConsultation.consultation_land_dimensions);
+  formData.append('width',createConsultation.width);
+  formData.append('length',createConsultation.length);
+  
   formData.append('consultation_land_map', createConsultation.consultation_land_map);
   
 
@@ -164,23 +186,36 @@ const handleMapClick = (selectedLocation) => {
   <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
   <label>Location Image</label>
-  <input type='file'   id="Consultation_image" name='Consultation_image' value={createConsultation.Consultation_image} onChange={handleImage} accept="image/png, image/jpeg, image/gif" className='form-control'>
+  <input type='file'   id="Consultation_image" name='Consultation_image' value={createConsultation.Consultation_image} onChange={handleImage} accept="image/png, image/jpeg, image/gif ,application/pdf" className='form-control'>
   </input>
   </div>
   </div>
 
+ 
   {file && (
-          <div className='row d-flex justify-content-center align-items-center'>
-            <div className='col-md-6'>
-              <label>Chosen Image</label>
-              <img
-                src={URL.createObjectURL(file)}
-                alt='Chosen Consultation Image'
-                style={{ width: '100%', height: 'auto', marginTop: '10px' }}
-              />
-            </div>
-          </div>
-        )}
+  <div className='row d-flex justify-content-center align-items-center'>
+    <div className='col-md-6'>
+      <label>Chosen File</label>
+      {file.type.includes('image') ? (
+        // Display image if it's an image
+        <img
+          src={URL.createObjectURL(file)}
+          alt='Chosen File'
+          style={{ width: '100%', height: 'auto', marginTop: '10px' }}
+        />
+      ) : (
+        // Display link if it's a PDF
+        <a
+          href={URL.createObjectURL(file)}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View PDF
+        </a>
+      )}
+    </div>
+  </div>
+)}
 
   <br></br>
 
@@ -195,22 +230,25 @@ const handleMapClick = (selectedLocation) => {
   <br></br>
 
 
-  <div className='row d-flex justify-content-center align-items-center'>
+  {/* <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
   <label>Land Dimensions</label>
   <input type='text' name='consultation_land_dimensions' value={createConsultation.consultation_land_dimensions} onChange={handleChange} className='form-control'></input>
   </div>
-  </div>
+  </div> */}
 
   <br></br>
 
 
-  {/* <div className='row d-flex justify-content-center align-items-center'>
-  <div className='col-md-6'>
-  <label>Land Map</label>
-  <input type='file' name='consultation_land_map' value={createConsultation.consultation_land_map} onChange={handleChange} className='form-control'></input>
-  </div>
-  </div> */}
+
+
+
+
+
+
+
+
+ 
 
 <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
@@ -226,19 +264,79 @@ const handleMapClick = (selectedLocation) => {
   </div>
 </div>
 
-
-
-
-
 <br></br>
 
 
-  <div className='row d-flex justify-content-center align-items-center'>
-  <div className='col-md-6'>
-  <label>Land Autocad</label>
-  <input type='file' name='consultation_land_autocad' value={createConsultation.consultation_land_autocad} onChange={handleChange} className='form-control'></input>
+
+
+
+
+<div className="row d-flex justify-content-center align-items-center">
+  <div className="col-md-6">
+    <label>Land Dimensions</label>
+    <div className="d-flex">
+      <input
+        type="text"
+        name="width"
+        onChange={handleChange}
+        className="form-control mr-2"
+        placeholder="Width"
+      ></input>
+
+<select
+        name="widthUnit"
+        value={createConsultation.consultation_land_dimensions.width.unit}
+        onChange={(e) => handleUnitChange(e, 'width')}
+        className="form-select mr-2 bg-secondary text-light"
+        aria-label="Unit"
+        style={{ width: '80px' }} 
+
+      >
+        <option value="cm">cm</option>
+        <option value="m">m</option>
+        <option value="m²">m²</option>
+        <option value="ft">ft</option>
+        <option value="in">in</option>
+
+      </select>
+
+      <input
+        type="text"
+        name="length"
+        
+        onChange={handleChange}
+        className="form-control"
+        placeholder="Length"
+      ></input>
+
+<select
+        name="lengthUnit"
+        value={createConsultation.consultation_land_dimensions.length.unit}
+        onChange={(e) => handleUnitChange(e, 'length')}
+        className="form-select mr-2 bg-secondary text-light"
+        aria-label="Unit"
+        style={{ width: '80px' }}>
+
+
+        <option value="cm">cm</option>
+        <option value="m">m</option>
+        <option value="m²">m²</option>
+        <option value="ft">ft</option>
+        <option value="in">in</option>
+        
+      </select>
+
+
+    </div>
   </div>
-  </div>
+</div>
+
+
+
+
+
+
+
 
   <br></br>
 
@@ -267,30 +365,6 @@ const handleMapClick = (selectedLocation) => {
 
 
 
-
-// <div className="row d-flex justify-content-center align-items-center">
-//   <div className="col-md-6">
-//     <label>Land Area</label>
-//     <div className="d-flex">
-//       <input
-//         type="text"
-//         name="consultation_land_area_width"
-//         value={createConsultation.consultation_land_area_width}
-//         onChange={handleChange}
-//         className="form-control mr-2"
-//         placeholder="Width"
-//       ></input>
-//       <input
-//         type="text"
-//         name="consultation_land_area_height"
-//         value={createConsultation.consultation_land_area_height}
-//         onChange={handleChange}
-//         className="form-control"
-//         placeholder="Height"
-//       ></input>
-//     </div>
-//   </div>
-// </div>
 
 
 
