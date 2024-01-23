@@ -22,6 +22,8 @@ import QuotationList from "./components/quotation/QuotationList";
 import EditProfile from "./components/user/EditProfile";
 import UserList from "./components/user/UserList";
 import UserProfile from "./components/user/UserProfile";
+import RequestList from "./components/adminView/RequestList";
+import ConsultationCreateForm from "./components/consultation/consultationCreateForm";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -35,9 +37,9 @@ function App() {
       console.log("user if", user);
       setIsAuth(true);
       setUserId(user.id);
-      showUser(userId);
+      showUser(user.id);
     } else {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       setIsAuth(false);
       setUserId(null);
     }
@@ -59,7 +61,7 @@ function App() {
         console.log("res.data.token", res.data.token)
         let token = res.data.token;
         if (token != null) {
-          localStorage.setItem("token", token);
+          sessionStorage.setItem("token", token);
           const user = getUser();
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUserId(user.id) : setUserId(null);
@@ -75,12 +77,12 @@ function App() {
     return token ? jwtDecode(token).user : null;
   };
   const getToken = () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     return token;
   };
   const onLogoutHandler = (e) => {
     e.preventDefault();
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setIsAuth(false);
     setUserId(null);
     setCurrentUser(null);
@@ -115,7 +117,7 @@ function App() {
     <>
 
 {/* currentUser?.userType === "Admin" ? ( */}
-      {isAuth && currentUser?.userType === "Admin"? (
+      {isAuth && currentUser?.userType === "User"? (
         <div>
           <Link to="/" className="btn">
             Home
@@ -210,6 +212,9 @@ function App() {
             Request List{" "}
           </Link>{" "}
           &nbsp; &nbsp;
+          <Link to="/logout" onClick={onLogoutHandler} className="btn">
+            Logout
+          </Link>
 
         </div>
       ) : (
@@ -262,7 +267,8 @@ function App() {
             <Route
               path="/company/JoinRequestForm"
               element={
-              <JoinRequestForm key={currentUser?._id || 1} user={currentUser} />}
+                currentUser&&
+              <JoinRequestForm user={currentUser} />}
             />
             <Route path="/company/category/:id" element={<Companies />} />
             <Route path="/Category/CategoryList" element={<CategoryList />} />
@@ -280,7 +286,7 @@ function App() {
               path="/adminView/Request"
               element={
                 currentUser?.userType === "Admin" ? (
-                  <Request />
+                  <RequestList />
                 ) : (
                   <HomePage />
                 )
@@ -305,8 +311,8 @@ function App() {
             />
             <Route
               path="/consultation/consultationList"
-              element={
-                <ConsultationList user_fullName={currentUser?.user_fullName} />
+              element={!!currentUser &&
+                <ConsultationList user_fullName={currentUser.user_fullName} />
               }
             />
             <Route
@@ -317,11 +323,14 @@ function App() {
               path="/appointment/AppointmentList"
               element={<AppointmentList />}
             />
+            <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
+           
           </>
         ) : ( // else
           <>
             <Route path="/" element={<HomePage />} />
             <Route path="/company/category/:id" element={<Companies />} />
+            <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
             <Route path="/Category/CategoryList" element={<CategoryList />} />
             <Route path="/user/SignUpForm" element={<SignUpForm />} />
 
