@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function QuotationEditForm(props) {
     const [quotation , setQuotation] = useState(props.quotation);
     quotation.user = sessionStorage.getItem("UserId");
+    quotation.Consultation = sessionStorage.getItem("Consultation");
     const handleChange = (event) => {
 
         const attributeToChange = event.target.name ; 
@@ -33,13 +34,10 @@ export default function QuotationEditForm(props) {
           <label>User</label>
           <input type='text' name='user'value={quotation.user} onChange={handleChange} disabled></input>
         </div>
-        <div>
-          <label>company</label>
-          <input type='text' name='company'value={quotation.company} onChange={handleChange} readOnly></input>
-        </div>
+        
       <div>
           <label>Consultation</label>
-          <input type='text' name='Consultation'value={quotation.Consultation} onChange={handleChange} readOnly></input>
+          <input type='text' name='Consultation' value={quotation.Consultation} onChange={handleChange} disabled></input>
         </div>
         <div>
           <label>date</label>
@@ -70,7 +68,7 @@ export default function QuotationEditForm(props) {
      
 
         <div>
-          <input type='submit' value="updateQuotation"></input>
+          <input type='submit' value="Update Quotation"></input>
         </div>
       </form>
     </div>

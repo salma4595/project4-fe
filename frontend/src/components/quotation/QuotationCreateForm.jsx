@@ -115,20 +115,19 @@ const [formData, setFormData] = useState({});
     <div className="container py-1 mb-5">
         <h1>Quotation for Inquire </h1>
         
-// i need to get the consultion description in select form
-// i need to get the user id and company name
+
         <div className="row g-5">
 
         <div className="col-md-6 col-lg-6">
         <form onSubmit={handleSubmit} autoComplete="off">
-        <div>
+        <div className="mb-3 pb-1"> 
           <label>User</label>
           <input type='text' name='user' onChange={handleChange} value={newQuotation.user} disabled></input> id
         </div>
-        <div>
+        {/* <div>
           <label>company</label>
           <input type='text' name='company' onChange={handleChange} readOnly></input> id
-        </div>
+        </div> */}
         <div className="mb-3 pb-1">
   <label htmlFor="consultation" id="consultation" className="form-label">Consultation: </label> 
   <select  name="consultation" className="form-select" onChange={handleConsultationChange} required>
@@ -176,7 +175,7 @@ const [formData, setFormData] = useState({});
 
 
             <div className="mb-3 pb-1">
-                <label className="form-label">description</label>
+                <label className="form-label"> Description </label>
                 <textarea type="text" className='form-control' name="description" onChange={handleChange} required/>
             </div>
 
@@ -185,19 +184,19 @@ const [formData, setFormData] = useState({});
 
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
-                    <label htmlFor="location" className="form-label">location</label>
+                    <label htmlFor="location" className="form-label">Location: </label>
                     <input type="text" className='form-control' id="location" name="location"  onChange={handleChange} required />
                 </div>
             </div>
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
-                    <label htmlFor="quantity" className="form-label">quantity: </label>
+                    <label htmlFor="quantity" className="form-label"> Quantity (m2): </label>
                     <input type="number" className='form-control' id="quantity" name="quantity" onChange={handleChange} required /> 
                 </div>
            
             <div className="col-sm-6">
                 <div className="mb-3 pb-1">
-                    <label htmlFor="price" className="form-label">price: </label>
+                    <label htmlFor="price" className="form-label"> Price (BHD): </label>
                     <input type="number" className='form-control' id="price" name="price"  onChange={handleChange} required />
                 </div>
             </div>
@@ -218,15 +217,7 @@ const [formData, setFormData] = useState({});
               
               
 
-              <div className="mb-3">
-                {/* <label className="form-label">Preview Image:</label> */}
-                <div >
-                {/* {formData.image && (
-                  <img src={URL.createObjectURL(formData.image)} alt="Preview" className="img-fluid" />
-                )} */}
-                {preview && <img src={preview} alt="Preview" className="img-fluid"/>}
-                </div>
-              </div>
+          
 
             <div>
                 {selectConsultation}<br />
