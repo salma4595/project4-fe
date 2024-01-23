@@ -11,7 +11,7 @@ export default function Category(props) {
    
     <div className="col-md-4" >
          <div className="card shadow-sm">
-         <Link to={`/company/Companies?Categories=${props._id}`}>
+         <Link to={`/company/category/${props._id}`}>
          <img src={props.image} className="card-img-top" style={{ width: "50%", height: "50%", objectFit: "contain" }} alt={props.name} />
          </Link>
            

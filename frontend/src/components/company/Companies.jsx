@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom'; // Import the Link component from react-router-dom
+import { Link, useParams } from 'react-router-dom'; // Import the Link component from react-router-dom
 import Axios from 'axios';
 import RequestForm from '../company/JoinRequestForm';
 // import EditCompanyForm from './EditCompany';
@@ -7,13 +7,16 @@ import RequestForm from '../company/JoinRequestForm';
 function CompanyPage(props) {
   const [companys, setCompanys] = useState([]);
   const [user, setUser]= useState(props.user);
+
+  const {id} = useParams()
+  console.log("id", id )
   // const [editCompany, setEditCompany] = useState({});
   // const [isEdit,setIsEdit]=useState(false);
 
   useEffect(() => {
     
     // Fetch companys from the API
-    Axios.get('/company/index')
+    Axios.get(`/company/get?cat_id=${id}`)
       .then(response => {
         setCompanys(response.data.companys);
       })
