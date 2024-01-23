@@ -97,7 +97,7 @@ export default function EditCompanyForm(props) {
     formData.append("working_days", editCompany.working_days);
     formData.append("_id",editCompany._id)
     // formData.append("exb",editCompany)
-
+    formData.append("Categories", newCompany.Categories);
     console.log(formData)
 
     Axios.put("/company/update",formData,{
