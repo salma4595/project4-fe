@@ -1,6 +1,8 @@
 import React from 'react';
-// import { Routes, Route, Link, useNavigate } from "react-router-dom";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+//import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
 import Quotation from './Quotation';
@@ -28,7 +30,7 @@ loadQuotationList();
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
     // setQuotation(dummyData)
-Axios.get("/quotation/index")
+Axios.get('/quotation/index?id='+props._id)
 .then((response) => {
 console.log("setQuotation",response);
 setQuotation(response.data.quotations);
@@ -150,9 +152,9 @@ return (
         <th>Description</th>
         <th>Date / Time</th>
         <th>Location</th>
-        <th>quantity</th>
-        <th>Price</th>
-        <th>Notes(s)</th>
+        <th>Quantity (m2) </th>
+        <th>Price (BHD) </th>
+        <th>Notes </th>
         <th></th>
         </tr>
             { allQuotation != null ? allQuotation : "No data" }

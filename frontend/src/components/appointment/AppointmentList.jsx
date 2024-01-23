@@ -7,6 +7,8 @@ import Appointment from './Appointment';
 import AppointmentCreateForm from './AppointmentCreateForm';
 import AppointmentEditForm from './AppointmentEditForm';
 import dummyData from './dummy'
+//import "bootstrap/dist/css/bootstrap.min.css";
+
 
 
 export default function AppointmentList(props) {
@@ -25,7 +27,8 @@ useEffect(() => {
 
     const loadAppointmentList = () => {
         // setAppointment(dummyData)
-    Axios.get("/appointment/index")
+   // Axios.get("/appointment/index")
+   Axios.get('/appointment/index?id='+props._id)
     .then((response) => {
     console.log(response);
     setAppointments(response.data.appointment);
@@ -44,6 +47,7 @@ const addAppointment = (appointment) => {
         console.log(res);
                     console.log("Appointment Added!");
                     loadAppointmentList();
+                    setIsCreateAppointment(false)
                 })
                 .catch((err) =>{
                     console.log("Error in adding Appointment!");
@@ -100,7 +104,7 @@ const allAppointments =   appointments.map((appointment, index) => (
       {/* <Appointment name={appointment.name} emailAddress={appointment.emailAddress} index={index} /> */}
         { props.user?.userType == "User" ? ( appointment.user == props.user._id ? 
         <> 
-            <Appointment {...appointment} index={index+1} editView={editView} deleteAppointment={deleteAppointment} isEditAppointment={isEditAppointment} setIsEditAppointment={setIsEditAppointment} />
+            <Appointment {...appointment}  index={index+1} editView={editView} deleteAppointment={deleteAppointment} isEditAppointment={isEditAppointment} setIsEditAppointment={setIsEditAppointment} />
         </>
         :
         <><br /><p className="text-white">  End of Contribution List</p></>
@@ -140,7 +144,7 @@ const allAppointments =   appointments.map((appointment, index) => (
       <tbody>
         <tr className="table-success">
           <th>No.</th>
-          <th>Consultion id Id</th>
+          <th>Consultation Id</th>
           {/* <th>Description</th> */}
           <th>Date / Time</th>
           <th>Location</th>
