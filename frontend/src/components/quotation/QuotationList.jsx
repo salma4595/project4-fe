@@ -59,7 +59,9 @@ const loadQuotationList = () => {
     // setQuotation(dummyData)
 const user= getUser();
 const userType= sessionStorage.getItem("userType");
-Axios.get('/quotation/get?id='+user.id+'&userType='+userType)
+Axios.get('/quotation/get?id='+user.id+'&userType='+userType,{headers:{
+    "Authorization":`Bearer ${getToken()}`
+}})
 //Axios.get('/quotation/index')
 .then((response) => {
 console.log("setQuotation",response);
