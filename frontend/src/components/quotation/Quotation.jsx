@@ -11,7 +11,7 @@ export default function Quotation(props) {
     <>
 
     <td>{props.index}</td>
-    <td>{props.consultation?.consultation_description}</td>
+    <td>{props.consultation}</td>
     <td>{props.description}</td>
     <td>{props.date}</td>
     <td>{props.location}</td>
