@@ -16,6 +16,7 @@ export default function UserProfile(props) {
               <p className="card-text"><strong>User Full Name:</strong> {props.user_fullName}</p>
               <p className="card-text"><strong>User Phone Number:</strong> {props.user_phoneNumber}</p>
               <p className="card-text"><strong>User Email Address:</strong> {props.user_emailAddress}</p>
+              <p className="card-text"><strong>User Type:</strong> {props.userType}</p>
             </div>
             <div className="col">
               <img
