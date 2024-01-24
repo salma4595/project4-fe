@@ -1,5 +1,6 @@
 // imports
 import React, { useEffect, useState } from 'react'
+import { Link, useParams } from 'react-router-dom';
 
 export default function Consultation(props) {
 
@@ -13,8 +14,8 @@ export default function Consultation(props) {
          <td>{`${props.width} x ${props.length}`}</td>
 
          <td>{props.consultation_land_map}</td>
-         
-
+         <td><Link to={`/quotation/QuotationCreateForm/${props._id}`}>Add Quotation</Link> &nbsp;&nbsp;</td>
+         {/* <td><Link to={`/quotation/QuotationList/${props._id}`}> QuotationList</Link> &nbsp;&nbsp;</td> */}
          
    <td><button onClick={() => props.editForm(props._id)} className='btn btn-link'>
     <i className="bi bi-pencil-fill"></i>

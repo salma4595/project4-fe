@@ -184,7 +184,7 @@ return(
               <th>Location Image</th>
               <th>Land Area</th>
               <th>width x length</th>
-              <th>Land Map</th>
+              <th>Quotation</th>
              <th>Edit</th>
              <th>Delete</th>
             </tr>   
@@ -195,7 +195,9 @@ return(
     </div>
    
     </div>
-    <Link  to={`/quotation/QuotationCreateForm/${consultations._id}`}>Add Quotation</Link>
+    {/* <Link  to={`/quotation/QuotationCreateForm/${consultations._id}`}>Add Quotation</Link> */}
+    <Link to={`/quotation/QuotationList/${consultations._id}`}>QuotationList</Link>
+        
 </>
 }
 </div>

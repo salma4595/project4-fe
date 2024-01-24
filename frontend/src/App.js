@@ -27,6 +27,7 @@ import ConsultationCreateForm from "./components/consultation/consultationCreate
 import QuotationCreateForm from "./components/quotation/QuotationCreateForm";
 
 function App() {
+  const [user, setUser] = useState({});
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState();
   const [currentUser, setCurrentUser] = useState();
@@ -64,6 +65,8 @@ function App() {
         if (token != null) {
           sessionStorage.setItem("token", token);
           const user = getUser();
+          console.log(user);
+          sessionStorage.setItem("UserId", user.id);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUserId(user.id) : setUserId(null);
           user ? showUser(user.id) : showUser(null);
@@ -178,15 +181,15 @@ function App() {
             Category List
           </Link>{" "}
           &nbsp;
-          <Link
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/consultation/consultationList"
           >
             Consultation List
-          </Link>{" "}
+          </Link>{" "} */}
           &nbsp;
-          <Link
+           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/quotation/QuotationList"
@@ -195,7 +198,7 @@ function App() {
             QuotationList{" "}
           </Link>{" "}
           &nbsp;
-          <Link
+          {/*<Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/appointment/AppointmentList"
@@ -203,7 +206,7 @@ function App() {
             {" "}
             Appointment List{" "}
           </Link>{" "}
-          &nbsp;
+          &nbsp; */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -220,7 +223,7 @@ function App() {
         </div>
       ) : (
         <>
-                  <Link
+                  {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/quotation/QuotationList"
@@ -236,7 +239,7 @@ function App() {
           >
             {" "}
             Appointment List{" "}
-          </Link>{" "}
+          </Link>{" "} */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -320,14 +323,16 @@ function App() {
               path="/quotation/QuotationList/user/:id"
               element={<QuotationList />}
             /> */}
-            <Route
+            {/* <Route
               path="/quotation/QuotationList"
               element={<QuotationList />}
             />
             <Route
               path="/appointment/AppointmentList"
               element={<AppointmentList />}
-            />
+            /> */}
+            <Route path='/quotation/QuotationList/:user_id' element={<QuotationList/>} />
+            <Route path='/appointment/AppointmentList/:id' element={<AppointmentList /> } />
             <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
             <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
             <Route path="/quotation/QuotationCreateForm/:id" element={<QuotationCreateForm />} />
