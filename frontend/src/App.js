@@ -223,7 +223,15 @@ function App() {
         </div>
       ) : (
         <>
-                  {/* <Link
+         <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/Category/CategoryList"
+          >
+            Category List
+          </Link>{" "}
+          &nbsp;
+                   <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/quotation/QuotationList"
@@ -239,7 +247,7 @@ function App() {
           >
             {" "}
             Appointment List{" "}
-          </Link>{" "} */}
+          </Link>{" "} 
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
