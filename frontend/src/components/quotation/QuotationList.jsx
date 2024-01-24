@@ -28,19 +28,22 @@ console.log("id", id )
   // Fetch user ID from the token
   const userId = jwtDecode(sessionStorage.getItem('token')).user.id;
 
-  useEffect(() => {
-    // Fetch quotations for the logged-in user from the API
-    Axios.get(`/quotation/get?user_id=${userId}`)
-      .then(response => {
-        setQuotation(response.data.quotations);
-      })
-      .catch(error => {
-        console.error('Error fetching quotations:', error);
-      });
-  }, [userId]);
+//   useEffect(() => {
+//     // Fetch quotations for the logged-in user from the API
+//     Axios.get(`/quotation/get?user_id=${userId}`)
+//       .then(response => {
+//         setQuotation(response.data.quotations);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching quotations:', error);
+//       });
+//   }, [userId]);
 // useEffect(() => {
 // //call API
-// loadQuotationList();
+useEffect(() => {
+    loadQuotationList();
+},[]);
+
 const getUser = () => {
     const token = getToken();
     return token ? jwtDecode(token).user : null;
@@ -54,7 +57,9 @@ const getUser = () => {
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
     // setQuotation(dummyData)
-Axios.get('/quotation/index?id='+props._id)
+const user= getUser();
+const userType= sessionStorage.getItem("userType");
+Axios.get('/quotation/get?id='+user.id+'&userType='+userType)
 //Axios.get('/quotation/index')
 .then((response) => {
 console.log("setQuotation",response);
@@ -64,7 +69,7 @@ setQuotation(response.data.quotations);
 console.log(error);
 })
 };
-
+//loadQuotationList();
 //create the API for creating the Quotation
 const addQuotation = (quotation) => {
     Axios.post("/quotation/add",quotation)
