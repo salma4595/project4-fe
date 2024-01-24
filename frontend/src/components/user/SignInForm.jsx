@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import './SignInForm.css'
 
 export default function SignInForm(props) {
 
@@ -22,13 +23,13 @@ export default function SignInForm(props) {
     }
 
     return (
-      <div className="mx-auto p-5 d-flex justify-content-center align-items-center">
-      <div className="col-md-5">
-        <div className="card p-4" style={{ borderRadius: '15px' }}>
+      <div className="mx-auto p-5 d-flex justify-content-center" style={{backgroundImage: 'url("../../assets/chicago-booth-construction.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}} >
+       <div className="col-md-6">
+        <div className="card p-5" style={{ borderRadius: '15px', backgroundColor: 'white' , boxShadow: '0 0 10px rgba(0,0,0,0.1)', minWidth:'250px'}}>
           <h1 className="text-center mb-4">Sign-In</h1>
 
           <form onSubmit={loginHandler}>
-            <div className="form-group col-md-6 mb-3 mx-auto ">
+            <div className="form-group col-md-7 mb-3 mx-auto ">
               <label htmlFor="user_emailAddress">Email Address</label>
               <input
                 type="email"
@@ -44,7 +45,7 @@ export default function SignInForm(props) {
 
           
 
-            <div className="form-group col-md-6 mb-3 mx-auto">
+            <div className="form-group col-md-7 mb-3 mx-auto">
               <label htmlFor="user_password">Password</label>
               <input
                 type="password"
