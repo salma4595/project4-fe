@@ -131,9 +131,7 @@ function App() {
             Home
           </Link>
           &nbsp;
-          <Link to="/logout" onClick={onLogoutHandler} className="btn">
-            Logout
-          </Link>
+          
           {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -142,6 +140,12 @@ function App() {
             Add Company
           </Link>{" "}
           &nbsp; */}
+         
+            <Link  className="nav-link text-white d-inline"
+            style={{ padding: 10 }} to="/logout" onClick={onLogoutHandler} >
+            Logout
+          </Link>{" "}
+          &nbsp;
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -262,14 +266,14 @@ function App() {
           </Link>{" "}
           &nbsp;
 
-          <Link
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/consultation/consultationList"
           >
             Consultation List
           </Link>{" "} 
-          &nbsp;
+          &nbsp; */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
