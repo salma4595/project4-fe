@@ -254,7 +254,7 @@ console.log(err) })
         style={{ width: '80px' }} 
 
       >
-        <option value="cm">cm</option>
+        {/* <option value="cm">cm</option> */}
         <option value="m">m</option>
         <option value="m²">m²</option>
         <option value="ft">ft</option>
@@ -280,7 +280,7 @@ console.log(err) })
         style={{ width: '80px' }}>
 
 
-        <option value="cm">cm</option>
+        {/* <option value="cm">cm</option> */}
         <option value="m">m</option>
         <option value="m²">m²</option>
         <option value="ft">ft</option>
