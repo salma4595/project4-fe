@@ -40,7 +40,7 @@ function CompanyPage(props) {
           
           <div key={company._id} className="col mb-4">
           
-            <div className="card">
+            <div className="card animated-card ">
               <Link to={"/company/CompanyDetails/"+company._id} > {/* Add the Link component */}
                 <img src={company.company_images} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={company.company_name} />
               </Link>

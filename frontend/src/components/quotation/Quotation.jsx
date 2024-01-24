@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import {Link} from 'react-router-dom'
 // import dayjs from "dayjs";
 // import relativeTime from "dayjs/plugin/relativeTime"; 
 // dayjs.extend(relativeTime);
@@ -8,8 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default function Quotation(props) {
   return (
     <>
+
     <td>{props.index}</td>
-    <td>{props.consultation?.consultation_description}</td>
+    <td>{props.consultation}</td>
     <td>{props.description}</td>
     <td>{props.date}</td>
     <td>{props.location}</td>

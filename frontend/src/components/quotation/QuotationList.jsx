@@ -1,7 +1,7 @@
 import React from 'react';
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { Link, useParams } from 'react-router-dom'; // Import the Link component from react-router-dom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { jwtDecode } from 'jwt-decode';
 //import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
@@ -21,16 +21,41 @@ const[isEditQuotation,setIsEditQuotation]=useState(false);
 
 // const passToken = passedToken;
 
-useEffect(() => {
-//call API
-loadQuotationList();
+const {id} = useParams()
+console.log("id", id )
+// const [editCompany, setEditCompany] = useState({});
+// const [isEdit,setIsEdit]=useState(false);
+  // Fetch user ID from the token
+  const userId = jwtDecode(sessionStorage.getItem('token')).user.id;
 
-},[]); //this end array is the conditional option
+  useEffect(() => {
+    // Fetch quotations for the logged-in user from the API
+    Axios.get(`/quotation/get?user_id=${userId}`)
+      .then(response => {
+        setQuotation(response.data.quotations);
+      })
+      .catch(error => {
+        console.error('Error fetching quotations:', error);
+      });
+  }, [userId]);
+// useEffect(() => {
+// //call API
+// loadQuotationList();
+const getUser = () => {
+    const token = getToken();
+    return token ? jwtDecode(token).user : null;
+  };
+  const getToken = () => {
+    const token = sessionStorage.getItem("token");
+    return token;
+  };
+
 
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
     // setQuotation(dummyData)
 Axios.get('/quotation/index?id='+props._id)
+//Axios.get('/quotation/index')
 .then((response) => {
 console.log("setQuotation",response);
 setQuotation(response.data.quotations);
@@ -109,6 +134,8 @@ const allQuotation = quotations.map((quotation, index) => (
     {/* <Quotation name={quotation.name} emailAddress={quotation.emailAddress} index={index} /> */}
     {props.user?.userType == "User" ? ( quotation.user == props.user._id ? 
     <> 
+    
+   
         <Quotation { ...quotation} index={index+1} editView={editView} deleteQuotation={deleteQuotation} isEditQuotation={isEditQuotation} setIsEditQuotation={setIsEditQuotation} />
     </>
     :

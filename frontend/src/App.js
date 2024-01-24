@@ -23,8 +23,12 @@ import EditProfile from "./components/user/EditProfile";
 import UserList from "./components/user/UserList";
 import UserProfile from "./components/user/UserProfile";
 import RequestList from "./components/adminView/RequestList";
+import ConsultationCreateForm from "./components/consultation/consultationCreateForm";
+import QuotationCreateForm from "./components/quotation/QuotationCreateForm";
+import ConsultationDetails from "./components/consultation/ConsultationDetails";
 
 function App() {
+  const [user, setUser] = useState({});
   const [isAuth, setIsAuth] = useState(false);
   const [userId, setUserId] = useState();
   const [currentUser, setCurrentUser] = useState();
@@ -38,7 +42,7 @@ function App() {
       setUserId(user.id);
       showUser(user.id);
     } else {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       setIsAuth(false);
       setUserId(null);
     }
@@ -60,8 +64,10 @@ function App() {
         console.log("res.data.token", res.data.token)
         let token = res.data.token;
         if (token != null) {
-          localStorage.setItem("token", token);
+          sessionStorage.setItem("token", token);
           const user = getUser();
+          console.log(user);
+          sessionStorage.setItem("UserId", user.id);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUserId(user.id) : setUserId(null);
           user ? showUser(user.id) : showUser(null);
@@ -76,12 +82,12 @@ function App() {
     return token ? jwtDecode(token).user : null;
   };
   const getToken = () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     return token;
   };
   const onLogoutHandler = (e) => {
     e.preventDefault();
-    localStorage.removeItem("token");
+    sessionStorage.removeItem("token");
     setIsAuth(false);
     setUserId(null);
     setCurrentUser(null);
@@ -116,7 +122,7 @@ function App() {
     <>
 
 {/* currentUser?.userType === "Admin" ? ( */}
-      {isAuth && currentUser?.userType === "Admin"? (
+      {isAuth && currentUser?.userType === "User"? (
         <div>
           <Link to="/" className="btn">
             Home
@@ -176,15 +182,15 @@ function App() {
             Category List
           </Link>{" "}
           &nbsp;
-          <Link
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/consultation/consultationList"
           >
             Consultation List
-          </Link>{" "}
+          </Link>{" "} */}
           &nbsp;
-          <Link
+           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/quotation/QuotationList"
@@ -193,7 +199,7 @@ function App() {
             QuotationList{" "}
           </Link>{" "}
           &nbsp;
-          <Link
+          {/*<Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/appointment/AppointmentList"
@@ -201,7 +207,7 @@ function App() {
             {" "}
             Appointment List{" "}
           </Link>{" "}
-          &nbsp;
+          &nbsp; */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -218,7 +224,15 @@ function App() {
         </div>
       ) : (
         <>
-                  <Link
+         <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/Category/CategoryList"
+          >
+            Category List
+          </Link>{" "}
+          &nbsp;
+                   <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/quotation/QuotationList"
@@ -234,7 +248,7 @@ function App() {
           >
             {" "}
             Appointment List{" "}
-          </Link>{" "}
+          </Link>{" "} 
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -309,25 +323,36 @@ function App() {
               element={<CompanyDetails />}
             />
             <Route
-              path="/consultation/consultationList"
+              path="/consultation/consultationList/:company_id"
               element={!!currentUser &&
                 <ConsultationList user_fullName={currentUser.user_fullName} />
               }
             />
-            <Route
+            {/* <Route
+              path="/quotation/QuotationList/user/:id"
+              element={<QuotationList />}
+            /> */}
+            {/* <Route
               path="/quotation/QuotationList"
               element={<QuotationList />}
             />
             <Route
               path="/appointment/AppointmentList"
               element={<AppointmentList />}
-            />
+            /> */}
+            <Route path='/quotation/QuotationList/:user_id' element={<QuotationList/>} />
+            <Route path='/appointment/AppointmentList/:id' element={<AppointmentList /> } />
+            <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
+            <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
+            <Route path="/quotation/QuotationCreateForm/:id" element={<QuotationCreateForm />} />
+            <Route path="/consultation/consultationDetails/:consultation_id" element={<ConsultationDetails />} />
           </>
         ) : ( // else
           <>
             <Route path="/" element={<HomePage />} />
             <Route path="/company/category/:id" element={<Companies />} />
-            <Route path="/Category/CategoryList" element={<CategoryList />} />
+            <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
+            <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
             <Route path="/user/SignUpForm" element={<SignUpForm />} />
 
             <Route
@@ -338,6 +363,8 @@ function App() {
               path="/company/CompanyDetails/:id"
               element={<CompanyDetails />}
             />
+            <Route path="/consultation/consultationDetails/:consultation_id" element={<ConsultationDetails />} />
+
           </>
         )}
       </Routes>
