@@ -172,7 +172,7 @@ return (
         </>
     :
     <>
-    <button onClick={() => setIsCreateQuotation(true)} className="btn btn-primary">Add Quotation</button>
+    {/* <button onClick={() => setIsCreateQuotation(true)} className="btn btn-primary">Add Quotation</button> */}
     <br />
     <br />
     <h5> Quotation List</h5>
