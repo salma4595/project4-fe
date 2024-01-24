@@ -36,3 +36,9 @@
     transform: rotate(360deg);
   }
 }
+
+.footerContainer {
+  background-color: #343a40; /* Adjust the footer background color */
+  color: white;
+  text-align: center;
+  padding: 1rem;}
