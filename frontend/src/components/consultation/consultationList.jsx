@@ -1,4 +1,4 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -180,10 +180,13 @@ return(
             <tr className="table-success">
         
             <th>Index</th>
+           
               <th>Description</th>
-              <th>Location Image</th>
+            
+               <th>Layout/Image </th>
               <th>Land Area</th>
-              <th>width x length</th>
+              <th>Dimensions </th>
+              
               <th>Quotation</th>
              <th>Edit</th>
              <th>Delete</th>
@@ -196,7 +199,7 @@ return(
    
     </div>
     {/* <Link  to={`/quotation/QuotationCreateForm/${consultations._id}`}>Add Quotation</Link> */}
-    <Link to={`/quotation/QuotationList/${consultations._id}`}>QuotationList</Link>
+    {/* <Link to={`/quotation/QuotationList/${consultations._id}`}>QuotationList</Link> */}
         
 </>
 }
