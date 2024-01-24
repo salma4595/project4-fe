@@ -89,10 +89,23 @@ const handleSubmit = (event) =>{
   formData.append('user', getUser().id);
   formData.append('consultation', id);
 
-  props.addQuotation(newQuotation);
+  addQuotation(newQuotation);
 
   event.preventDefault();
 }
+const addQuotation = (quotation) => {
+  Axios.post("/quotation/add",quotation)
+  .then(res =>{
+      console.log(res);
+                  console.log("Quotation Added!");
+                  // loadQuotationList();
+                  // setIsCreateQuotation(false)
+              })
+              .catch((err) =>{
+                  console.log("Error in adding Quotation !");
+                  console.log(err);
+              })
+          }
 
 const consultationView = (id) => {
   console.log(id)

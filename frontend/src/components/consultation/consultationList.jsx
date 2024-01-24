@@ -184,7 +184,7 @@ return(
               <th>Location Image</th>
               <th>Land Area</th>
               <th>width x length</th>
-              <th>Land Map</th>
+              <th>Quotation</th>
              <th>Edit</th>
              <th>Delete</th>
             </tr>   

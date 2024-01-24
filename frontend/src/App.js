@@ -64,6 +64,8 @@ function App() {
         if (token != null) {
           sessionStorage.setItem("token", token);
           const user = getUser();
+          console.log(user);
+          sessionStorage.setItem("UserId", user.id);
           user ? setIsAuth(true) : setIsAuth(false);
           user ? setUserId(user.id) : setUserId(null);
           user ? showUser(user.id) : showUser(null);
@@ -178,13 +180,13 @@ function App() {
             Category List
           </Link>{" "}
           &nbsp;
-          <Link
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/consultation/consultationList"
           >
             Consultation List
-          </Link>{" "}
+          </Link>{" "} */}
           &nbsp;
           <Link
             className="nav-link text-white d-inline"
