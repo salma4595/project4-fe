@@ -10,9 +10,9 @@ export default function Category(props) {
     <>
    
     <div className="col-md-4" >
-         <div className="card shadow-sm">
+         <div className="card shadow-sm my-card">
          <Link to={`/company/category/${props._id}`}>
-         <img src={props.image} className="card-img-top" style={{ width: "50%", height: "50%", objectFit: "contain" }} alt={props.name} />
+         <img src={props.image} className="card-img-top" style={{ width: "100%", height: "auto", objectFit: "contain" }} alt={props.name} />
          </Link>
            
           <div className="card-body text-bg-dark">
