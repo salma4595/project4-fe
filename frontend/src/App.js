@@ -121,9 +121,11 @@ function App() {
   };
   return (
     <>
-
-{/* currentUser?.userType === "Admin" ? ( */}
-      {isAuth && currentUser?.userType === "User"? (
+    <div class="App">
+    <header className="bg-dark text-white text-center py-2">
+        <div className="container">
+          <nav className="navbar navbar-expand-lg px-0">
+          {isAuth && currentUser?.userType === "User"? (
         <div>
           <Link to="/" className="btn">
             Home
@@ -132,14 +134,14 @@ function App() {
           <Link to="/logout" onClick={onLogoutHandler} className="btn">
             Logout
           </Link>
-          <Link
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/company/AddCompanyForm"
           >
             Add Company
           </Link>{" "}
-          &nbsp;
+          &nbsp; */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -148,15 +150,15 @@ function App() {
             Join As a Company
           </Link>{" "}
           &nbsp;
-          <Link
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/company/Companies"
           >
             Show Companies
           </Link>{" "}
-          &nbsp;
-          <Link
+          &nbsp; */}
+          {/* <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/user/UserList"
@@ -164,7 +166,7 @@ function App() {
             {" "}
             User List{" "}
           </Link>{" "}
-          &nbsp;
+          &nbsp; */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -209,7 +211,40 @@ function App() {
             Appointment List{" "}
           </Link>{" "}
           &nbsp; */}
-          <Link
+          {/* 
+          
+          <Link to="/logout" onClick={onLogoutHandler} className="btn">
+            Logout
+          </Link> */}
+
+        </div>
+      ) :  (
+      
+        ""
+    )}
+
+ {currentUser?.userType === "Admin"? (
+
+          <div>
+            <Link to="/" className="btn">
+            Home
+          </Link>
+          &nbsp;
+          <Link  className="nav-link text-white d-inline"
+            style={{ padding: 10 }} to="/logout" onClick={onLogoutHandler} >
+            Logout
+          </Link>{" "}
+          &nbsp;
+            <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/user/UserProfile"
+          >
+            {" "}
+            User Profile{" "}
+          </Link>{" "}
+          &nbsp;
+            <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/adminView/Request"
@@ -218,14 +253,7 @@ function App() {
             Request List{" "}
           </Link>{" "}
           &nbsp; &nbsp;
-          <Link to="/logout" onClick={onLogoutHandler} className="btn">
-            Logout
-          </Link>
-
-        </div>
-      ) : (
-        <>
-         <Link
+          <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/Category/CategoryList"
@@ -233,7 +261,16 @@ function App() {
             Category List
           </Link>{" "}
           &nbsp;
-                   <Link
+
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/consultation/consultationList"
+          >
+            Consultation List
+          </Link>{" "} 
+          &nbsp;
+          <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
             to="/quotation/QuotationList"
@@ -245,11 +282,69 @@ function App() {
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
+            to="/user/UserList"
+          >
+            {" "}
+            User List{" "}
+          </Link>{" "}
+          &nbsp; 
+          </div>
+        ): (
+      
+          ""
+      )}
+  
+   {currentUser?.userType === "CompanyOwner"? (
+
+          <div>
+            <Link  className="nav-link text-white d-inline"
+            style={{ padding: 10 }} to="/logout" onClick={onLogoutHandler} >
+            Logout
+          </Link>{" "}
+          &nbsp;
+          <Link
+          className="nav-link text-white d-inline"
+          style={{ padding: 10 }}
+          to="/Category/CategoryList"
+        >
+          Category List
+        </Link>{" "}
+        &nbsp;
+        
+        <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/quotation/QuotationList"
+          >
+            {" "}
+            QuotationList{" "}
+          </Link>{" "}
+          &nbsp;
+          {/* <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/consultation/consultationList/:company_id"
+          >
+            Consultation List
+          </Link>{" "} 
+          &nbsp; */}
+          </div>
+        )
+        : (
+          ""
+             )}
+
+        <>
+         
+                   
+          {/* <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
             to="/appointment/AppointmentList"
           >
             {" "}
             Appointment List{" "}
-          </Link>{" "} 
+          </Link>{" "}  */}
           <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -269,9 +364,17 @@ function App() {
           </Link>{" "}
           &nbsp;
         </>
-      )}
+      
+            </nav>
+          </div>
+    </header>   
+     </div>
+    
+{/* currentUser?.userType === "Admin" ? ( */}
+     
+      
       <Routes>
-        {isAuth ? (
+        {currentUser ? (
           <>
             <Route path="/" element={<HomePage />} />
             <Route
@@ -285,7 +388,7 @@ function App() {
               <JoinRequestForm user={currentUser} />}
             />
             <Route path="/company/category/:id" element={<Companies />} />
-            <Route path="/Category/CategoryList" element={<CategoryList />} />
+            <Route path="/Category/CategoryList" element={currentUser ? <CategoryList user={currentUser} />:""} />
             <Route
               path="/user/UserList"
               element={
@@ -369,9 +472,14 @@ function App() {
           </>
         )}
       </Routes>
-      <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
+      {/* <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
         <div className="container">
           <p className="mb-1 text-white">&copy; 2024 | Voiture App </p>
+        </div>
+      </footer> */}
+      <footer className="px-3 py-2 text-bg-dark mt-5 stickToBottom">
+        <div className="container">
+          <p className="mb-1 text-white">&copy; 2024 WeBuild. All rights reserved.</p>
         </div>
       </footer>
     </>
