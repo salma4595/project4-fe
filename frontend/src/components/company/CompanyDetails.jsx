@@ -47,13 +47,15 @@ export default function CompanyDetailPage(props) {
       <div className="container mt-5 mb-4 d-flex align-items-center justify-content-center">
         <div key={company._id} className="card mb-3">
           <div className="card-body">
-            <h2 className="card-title">Company Name: {company.company_name}</h2>
-            <img src={company.company_images} alt={company.company_name} className="card-img-top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            <p className="card-text">Company Description: {company.company_description}</p>
-            <p className="card-text">Business Email-Address: {company.company_emailAddress}</p>
-            <p className="card-text">Business Contacts: {company.company_phoneNumber}</p>
-            <p className="card-text">Company Location: {company.company_latitude}</p>
-            <Map destination={[company.company_latitude, company.company_longtude]}></Map>
+            <h2 className="card-title"> Name: {company.company_name}</h2>
+            <img src={company.company_images} alt={company.company_name} className="card-img-top" style={{ width: '100/%', height: '60%', objectFit: 'cover',alignItems:'center' }} />
+            <p className="card-text"><strong>Company Description:</strong> {company.company_description}</p>
+            <p className="card-text"><strong>Business Email-Address:</strong> {company.company_emailAddress}</p>
+            <p className="card-text"><strong>Business Contacts:</strong> {company.company_phoneNumber}</p>
+            <p className="card-text"><strong>Coordinates Lapidate: </strong>{company.company_latitude}</p>
+            <p className="card-text"><strong>Coordinates Longitude:</strong> {company.company_longtude}</p>
+            <Map destination={[company.company_latitude, company.company_longtude]} ></Map>
+            
           </div>
         </div>
         </div>
