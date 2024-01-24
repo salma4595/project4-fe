@@ -7,7 +7,7 @@ export default function Consultation(props) {
   return (
     <>
         <td>{props.index}</td>
-         <td>{props.consultation_description}</td>
+         <td><Link to={`/consultation/consultationDetails/${props._id}`}>{props.consultation_description}</Link  ></td>
          <td>
           <img src={props.consultation_image} alt="" width={50} /></td>
          <td>{props.consultation_land_area}</td>

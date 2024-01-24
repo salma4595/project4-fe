@@ -25,6 +25,7 @@ import UserProfile from "./components/user/UserProfile";
 import RequestList from "./components/adminView/RequestList";
 import ConsultationCreateForm from "./components/consultation/consultationCreateForm";
 import QuotationCreateForm from "./components/quotation/QuotationCreateForm";
+import ConsultationDetails from "./components/consultation/ConsultationDetails";
 
 function App() {
   const [user, setUser] = useState({});
@@ -344,6 +345,7 @@ function App() {
             <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
             <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
             <Route path="/quotation/QuotationCreateForm/:id" element={<QuotationCreateForm />} />
+            <Route path="/consultation/consultationDetails/:consultation_id" element={<ConsultationDetails />} />
           </>
         ) : ( // else
           <>
@@ -361,6 +363,8 @@ function App() {
               path="/company/CompanyDetails/:id"
               element={<CompanyDetails />}
             />
+            <Route path="/consultation/consultationDetails/:consultation_id" element={<ConsultationDetails />} />
+
           </>
         )}
       </Routes>
