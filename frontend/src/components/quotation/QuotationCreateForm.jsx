@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
+import { jwtDecode } from "jwt-decode";
+import { useParams } from 'react-router-dom';
 
 
 
@@ -13,6 +15,8 @@ const QuotationForm = () => {
        
     });
 }
+
+
 
 const [consultation, setConsultation] = useState([]);
 
@@ -56,6 +60,8 @@ const handleChange = (event) => {
     quotation[attributeToChange] = newValue;
     console.log(quotation);
     setnewQuotation(quotation);
+
+
 } 
 
 const [selectConsultation , setSelectConsultation] = useState("");
@@ -75,11 +81,17 @@ const handleConsultationChange = (event) => {
     consultationView(newConsultation);
 } 
 
-
+const {id} = useParams()
 const handleSubmit = (event) =>{
-    event.preventDefault();
-    props.addQuotation(newQuotation);
-    
+  const formData = new FormData();
+  
+
+  formData.append('user', getUser().id);
+  formData.append('consultation', id);
+
+  props.addQuotation(newQuotation);
+
+  event.preventDefault();
 }
 
 const consultationView = (id) => {
@@ -110,6 +122,15 @@ Axios.get(`/consultations/detail?id=${id}`)
 const [formData, setFormData] = useState({});
 
 // console.log("consultation ", consultation)
+
+const getUser = () => {
+  const token = getToken();
+  return token ? jwtDecode(token).user : null;
+};
+const getToken = () => {
+  const token = sessionStorage.getItem("token");
+  return token;
+};
 
   return (
     <div className="container py-1 mb-5">

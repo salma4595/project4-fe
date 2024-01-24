@@ -1,4 +1,3 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
 import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -7,30 +6,16 @@ import Consultation from './consultation';
 import ConsultationCreateForm from './consultationCreateForm';
 import ConsultationEditForm from './consultationEditForm';
 import { Link, useParams } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
 
 export default function ConsultationList(props){
     const [consultations, setConsultations] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [currentConsultations, setCurrentConsultations] = useState({})
     const[isCreateQuotation,setIsCreateQuotation]=useState(false);
-    const[isCreateConsultation,setIsCreateConsultation]=useState(false);
-    const { company_id } = useParams()
-  console.log("company_id ", company_id )
-    // useEffect(() => {
-    //     //call api
-    //     loadConsultationList()
-    //   }, []);
     useEffect(() => {
-      // Fetch companys from the API
-      Axios.get(`/consultations/get?company_id=${company_id}`)
-        .then(response => {
-          setConsultations(response.data.consultations);
-        })
-        .catch(error => {
-          console.error('Error fetching companys:', error);
-        });
-    }, []);
+        //call api
+        loadConsultationList()
+      }, []);
 
       
   // const loadConsultationList = () => {
@@ -137,54 +122,33 @@ const theConsultataionRound = consultations.map((consultation, index) => (
   <> 
   
  
-      <Consultation { ...consultation} index={index+1} editForm={editConsultation} deleteForm={deleteConsultation} setIsEdit={setIsEdit} />
+      <Consultation { ...consultation} index={index+1} editView={editConsultation} deleteQuotation={deleteConsultation} isEdit={isEdit} setIsEdit={setIsEdit} />
   </>
   :
   <><br /><p className="text-white">  End of Contribution List</p></>
   ) : 
   <> 
-      <Consultation { ...consultation} index={index+1} editForm={editConsultation} deleteForm={deleteConsultation} setIsEdit={setIsEdit} />
+      <Consultation { ...consultation} index={index+1} editView={editConsultation} deleteQuotation={deleteConsultation} isEdit={isEdit} setIsEdit={setIsEdit} />
   </>
   }
 </tr>    
 ))
 return(
   <>
-  
-
-
-
-<div className="container py-5 mb-5">
-
-    {(isCreateConsultation) ?
-    <>
-    <ConsultationCreateForm addConsultation={addConsultation} isCreateConsultation={isCreateConsultation} setIsCreateConsultation={setIsCreateConsultation } />
-    </>
-        : 
-    
-    (isEdit) ?
-        <>
-        <ConsultationEditForm userID={props.userID} key={currentConsultations._id} currentConsultations={currentConsultations} editConsultation={editConsultation} updateTheview={updateTheview} isEdit={isEdit} setIsEdit={setIsEdit} />
-        </>
-    :
-    <>
-    {/* <button onClick={() => setIsCreateConsultation(true)} className="btn btn-primary">Add isCreateConsultation</button>
-    <br /> */}
-    <br />
   <div>
       <h2 className='text-center mt-4'>Consultation List</h2>
        <div  className='row d-flex justify-content-center align-items-center text-center table table-bordered mb-2'>
        <div className='col-md-6 '>
          <table className="table table-stripes table mt-4 table border-top">
           <thead>
-            <tr className="table-success">
-        
+            <tr>
             <th>Index</th>
               <th>Description</th>
               <th>Location Image</th>
               <th>Land Area</th>
               <th>width x length</th>
               <th>Land Map</th>
+             
              <th>Edit</th>
              <th>Delete</th>
             </tr>   
@@ -193,13 +157,16 @@ return(
         </table>
         </div>
     </div>
-   
+    {(!isEdit) ? 
+  
+      <Consultation user_fullName={props.user_fullName} addAConsultation={addConsultation}></Consultation>
+      :
+      <Consultation key={currentConsultations._id}  presentConsultation={currentConsultations} editConsultation={editConsultation} updateTheview={updateTheview}></Consultation>
+}
     </div>
     <Link  to={`/quotation/QuotationCreateForm/${consultations._id}`}>Add Quotation</Link>
 </>
-}
-</div>
-</>
+
 )
 
  
