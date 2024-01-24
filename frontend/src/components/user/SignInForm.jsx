@@ -1,26 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignInForm.css'
 
 export default function SignInForm(props) {
+  const navigate = useNavigate();
+  const [newUser, setNewUser] = useState({});
 
-  const navigate = useNavigate()
+  const handleChange = (event) => {
+    const user = { ...newUser };
+    user[event.target.name] = event.target.value;
+    console.log(user);
+    setNewUser(user);
+  };
 
-    const [newUser, setNewUser] = useState({});
-
-    const handleChange = (event) => {
-        const user = {...newUser};
-        user[event.target.name] = event.target.value;
-        console.log(user);
-        setNewUser(user);
-    }
-
-    const loginHandler = (e) => {
-        e.preventDefault();
-        props.login(newUser);
-        e.target.reset();
-        navigate('/')
-    }
+  const loginHandler = (e) => {
+    e.preventDefault();
+    props.login(newUser);
+    e.target.reset();
+    navigate('/');
+  };
 
     return (
       <div className="mx-auto p-5 d-flex justify-content-center" style={{backgroundImage: 'url("../../assets/chicago-booth-construction.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}} >

@@ -1,0 +1,10 @@
+.signin-form {
+  background-image: url('./back.jpg');
+  background-size: cover;
+  background-position: center;
+  /* Additional styles as needed */
+}
+
+.signin-form-card {
+  /* Styles for the card container */
+}
