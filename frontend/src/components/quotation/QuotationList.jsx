@@ -25,17 +25,19 @@ const {id} = useParams()
 console.log("id", id )
 // const [editCompany, setEditCompany] = useState({});
 // const [isEdit,setIsEdit]=useState(false);
-useEffect(() => {
-    // Fetch companys from the API
-   //Axios.get(`/quotation/get?user_id=${id}`)
-   Axios.get('/quotation/index')
+  // Fetch user ID from the token
+  const userId = jwtDecode(sessionStorage.getItem('token')).user.id;
+
+  useEffect(() => {
+    // Fetch quotations for the logged-in user from the API
+    Axios.get(`/quotation/get?user_id=${userId}`)
       .then(response => {
         setQuotation(response.data.quotations);
       })
       .catch(error => {
         console.error('Error fetching quotations:', error);
       });
-  }, []);
+  }, [userId]);
 // useEffect(() => {
 // //call API
 // loadQuotationList();
@@ -52,8 +54,8 @@ const getUser = () => {
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
     // setQuotation(dummyData)
-//Axios.get('/quotation/index?id='+props._id)
-Axios.get('/quotation/index')
+Axios.get('/quotation/index?id='+props._id)
+//Axios.get('/quotation/index')
 .then((response) => {
 console.log("setQuotation",response);
 setQuotation(response.data.quotations);

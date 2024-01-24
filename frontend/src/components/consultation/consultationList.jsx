@@ -195,7 +195,9 @@ return(
     </div>
    
     </div>
-    <Link  to={`/quotation/QuotationCreateForm/${consultations._id}`}>Add Quotation</Link>
+    {/* <Link  to={`/quotation/QuotationCreateForm/${consultations._id}`}>Add Quotation</Link> */}
+    <Link to={`/quotation/QuotationList/${consultations._id}`}>QuotationList</Link>
+        
 </>
 }
 </div>
