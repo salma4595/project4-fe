@@ -43,7 +43,7 @@ export default function CompanyDetailPage(props) {
 
   return (
     <>
-      <h1 className="text-center">Cars for Company</h1>
+      <h1 className="text-center">Companies</h1>
       <div className="container mt-5 mb-4 d-flex align-items-center justify-content-center">
         <div key={company._id} className="card mb-3">
           <div className="card-body">
@@ -56,10 +56,11 @@ export default function CompanyDetailPage(props) {
             <Map destination={[company.company_latitude, company.company_longtude]}></Map>
           </div>
         </div>
-
-        <Link to={`/consultation/consultationCreateForm/${company._id}`}>Add Consultation</Link> &nbsp;&nbsp;
-        <Link to={`/consultation/consultationList/${company._id}`}>Consultation List</Link>
-      </div>
+        </div>
+        <div className='text-center'>
+        <Link to={`/consultation/consultationCreateForm/${company._id}`} className='btn btn-dark mr-2'>Add Consultation</Link> &nbsp;&nbsp;
+        <Link to={`/consultation/consultationList/${company._id}`} className='btn btn-dark'>Consultation List</Link>
+        </div>
     </>
   )
 }

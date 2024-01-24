@@ -5,9 +5,12 @@ import Axios from 'axios';
 export default function UserProfile(props) {
   console.log('props', props);
   return (
+    <>
+    <h1 style={{ textAlign: 'center' }}>User Profile</h1>
     <div className="container">
       <div className="card">
         <div className="card-body">
+       
           <div className="row">
             <div className="col">
               <p className="card-text"><strong>User Full Name:</strong> {props.user_fullName}</p>
@@ -25,7 +28,7 @@ export default function UserProfile(props) {
           </div>
           <div className="row">
             <div className="col">
-              <Link to="/user/EditProfile/" className="btn btn-secondary">
+              <Link to="/user/EditProfile/" className="btn btn-dark">
                 Edit
               </Link>
             </div>
@@ -33,5 +36,6 @@ export default function UserProfile(props) {
         </div>
       </div>
     </div>
+    </>
   );
 }
