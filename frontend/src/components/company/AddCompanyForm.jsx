@@ -223,21 +223,23 @@ export default function AddCompanyForm(props) {
     <input type="checkbox" name="workingDays" value="Saturday"/> Saturday
     <input type="checkbox" name="workingDays" value="Sunday"/> Sunday
   </div> */}
-
-        <div className="mb-3">
-          <label htmlFor="company_location" className="form-label">
-            Company Location:
-          </label>
-          <Map destination={destination} key={destination&& destination.lat || 2}/>
-          
-          <button type="button" onClick={fetchCurrentLocation}>Get Current Location</button>
-        </div>
+        <div className="text-center">
+      <div className="mb-3 text-center">
+        <label htmlFor="company_location" className="form-label">
+          Company Location:
+        </label>
+      
+        <Map destination={destination} key={destination && destination.lat || 2} />
+        <br/>
+        <input type="button" className="btn btn-secondary" value="Get Current Location" onClick={fetchCurrentLocation}/>
+      </div>
 
         {/* Rest of the form fields */}
 
-        <div className="mb-3">
-          <input type="submit" value="Create Company" className="btn btn-primary" />
-        </div>
+        <div className="mb-3 text-center">
+        <input type="submit" value="Create Company" className="btn btn-secondary" />
+      </div>
+    </div>
       </form>
     </div>
   );
