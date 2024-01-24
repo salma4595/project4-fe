@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom'; // Import the Link component from react-router-dom
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { jwtDecode } from 'jwt-decode';
 //import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect, useState } from 'react';
 import Axios from 'axios'; //AJAX functionality for React (npm i axios)
@@ -27,7 +27,8 @@ console.log("id", id )
 // const [isEdit,setIsEdit]=useState(false);
 useEffect(() => {
     // Fetch companys from the API
-    Axios.get(`/quotation/get?user_id=${id}`)
+   //Axios.get(`/quotation/get?user_id=${id}`)
+   Axios.get('/quotation/index')
       .then(response => {
         setQuotation(response.data.quotations);
       })
@@ -38,13 +39,21 @@ useEffect(() => {
 // useEffect(() => {
 // //call API
 // loadQuotationList();
-
+const getUser = () => {
+    const token = getToken();
+    return token ? jwtDecode(token).user : null;
+  };
+  const getToken = () => {
+    const token = sessionStorage.getItem("token");
+    return token;
+  };
 
 
 //using axios for the API fetching GET 
 const loadQuotationList = () => {
     // setQuotation(dummyData)
-Axios.get('/quotation/index?id='+props._id)
+//Axios.get('/quotation/index?id='+props._id)
+Axios.get('/quotation/index')
 .then((response) => {
 console.log("setQuotation",response);
 setQuotation(response.data.quotations);

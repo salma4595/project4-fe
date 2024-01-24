@@ -6,7 +6,7 @@ import Axios from 'axios'
 export default function ConsultationEditForm(props){
 
   const [editConsultation, setEditConsultation] = useState({
-    ...props.presentConsultation,
+    ...props.currentConsultations,
     consultation_land_dimensions: {
       width: {
         unit: 'm', // Default unit (you can change it to the desired default)
@@ -22,7 +22,7 @@ const [destination, setDestination] = useState(null);
 const [location, setLocation] = useState("");
 const autocompleteRef = useRef(null);
 // for image update
-const [file, setFile] = useState(props.presentConsultation.Consultation_image);
+const [file, setFile] = useState(props.currentConsultations.consultation_image );
 const [formKey, setFormKey] = useState(0)
 const [users, setUsers] = useState([])
 
@@ -105,7 +105,7 @@ const resetForm = () => {
   const formData = new FormData();
   
   formData.append('consultation_image', file);
-  formData.append('_id', props.presentConsultation._id)
+  formData.append('_id', props.currentConsultations._id)
 
   formData.append('consultation_description', editConsultation.consultation_description);
   formData.append('consultation_land_area', editConsultation.consultation_land_area);
@@ -164,7 +164,18 @@ const resetForm = () => {
   <div className='row d-flex justify-content-center align-items-center'>
     <div className='col-md-6'>
       <label>Chosen File</label>
-      {file.type.includes('image') ? (
+      <div
+                style={{ width: '50vw', height: 'auto', marginTop: '10px' }}
+      >
+      <img
+          src={file}
+          alt={editConsultation.consultation_description}
+          style={{ width: '100%', height: 'auto', marginTop: '10px' }}
+          />
+          </div>
+      {/* <img /> */}
+      {/* {file.type.includes('image') ? ( */}
+      {/* {file ? (
         // Display image if it's an image
         <img
           src={URL.createObjectURL(file)}
@@ -180,7 +191,7 @@ const resetForm = () => {
         >
           View PDF
         </a>
-      )}
+      )} */}
     </div>
   </div>
 )}

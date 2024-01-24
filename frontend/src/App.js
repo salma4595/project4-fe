@@ -24,6 +24,7 @@ import UserList from "./components/user/UserList";
 import UserProfile from "./components/user/UserProfile";
 import RequestList from "./components/adminView/RequestList";
 import ConsultationCreateForm from "./components/consultation/consultationCreateForm";
+import QuotationCreateForm from "./components/quotation/QuotationCreateForm";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -310,13 +311,17 @@ function App() {
               element={<CompanyDetails />}
             />
             <Route
-              path="/consultation/consultationList"
+              path="/consultation/consultationList/:company_id"
               element={!!currentUser &&
                 <ConsultationList user_fullName={currentUser.user_fullName} />
               }
             />
-            <Route
+            {/* <Route
               path="/quotation/QuotationList/user/:id"
+              element={<QuotationList />}
+            /> */}
+            <Route
+              path="/quotation/QuotationList"
               element={<QuotationList />}
             />
             <Route
@@ -324,14 +329,15 @@ function App() {
               element={<AppointmentList />}
             />
             <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
-           
+            <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
+            <Route path="/quotation/QuotationCreateForm/:id" element={<QuotationCreateForm />} />
           </>
         ) : ( // else
           <>
             <Route path="/" element={<HomePage />} />
             <Route path="/company/category/:id" element={<Companies />} />
             <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
-            <Route path="/Category/CategoryList" element={<CategoryList />} />
+            <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
             <Route path="/user/SignUpForm" element={<SignUpForm />} />
 
             <Route

@@ -5,7 +5,7 @@ export default function Consultation(props) {
 
   return (
     <>
-        
+        <td>{props.index}</td>
          <td>{props.consultation_description}</td>
          <td>
           <img src={props.consultation_image} alt="" width={50} /></td>
