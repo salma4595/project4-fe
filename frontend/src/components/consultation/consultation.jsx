@@ -13,7 +13,7 @@ export default function Consultation(props) {
          <td>{props.consultation_land_area}</td>
          <td>{`${props.width} x ${props.length}`}</td>
 
-         <td>{props.consultation_land_map}</td>
+         {/* <td>{props.consultation_land_map}</td> */}
          <td><Link to={`/quotation/QuotationCreateForm/${props._id}`}>Add Quotation</Link> &nbsp;&nbsp;</td>
          {/* <td><Link to={`/quotation/QuotationList/${props._id}`}> QuotationList</Link> &nbsp;&nbsp;</td> */}
          

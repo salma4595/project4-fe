@@ -187,7 +187,7 @@ console.log(err) })
 
   <div className='row d-flex justify-content-center align-items-center'>
   <div className='col-md-6'>
-  <label>Location Image</label>
+  <label>Layout</label>
   <input type='file'   id="Consultation_image" name='Consultation_image' value={createConsultation.Consultation_image} onChange={handleImage} accept="image/png, image/jpeg, image/gif ,application/pdf" className='form-control'>
   </input>
   </div>

@@ -96,6 +96,7 @@ function App() {
     Axios.get(`/user/detail?id=${id}`)
       .then((response) => {
         let user = response.data.user;
+        sessionStorage.setItem("userType",user.userType)
         console.log('current user', user);
         setCurrentUser(user);
       })
@@ -340,7 +341,7 @@ function App() {
               path="/appointment/AppointmentList"
               element={<AppointmentList />}
             /> */}
-            <Route path='/quotation/QuotationList/:user_id' element={<QuotationList/>} />
+            <Route path='/quotation/QuotationList' element={<QuotationList/>} />
             <Route path='/appointment/AppointmentList/:id' element={<AppointmentList /> } />
             <Route path="/consultation/consultationCreateForm/:id" element={<ConsultationCreateForm />} />
             <Route path="/consultation/consultationList/:company_id" element={<ConsultationList />} />
