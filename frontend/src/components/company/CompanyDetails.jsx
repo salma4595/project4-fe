@@ -42,36 +42,24 @@ export default function CompanyDetailPage(props) {
   
 
   return (
-    
-<>
-        <h1 className="text-center">Cars for Company</h1>
-      <div className=" container mt-5 mb-4 d-flex align-items-center justify-content-center">
-      
-          
-          <div key={company._id} className="card mb-3">
-            <div className="card-body">
-              <h2 className="card-title">Company Name: {company.company_name}</h2>
-              <img src={company.company_images} alt={company.company_name} className="card-img-top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              <p className="card-text">Company Description: {company.company_description}</p>
-              <p className="card-text">Business Email-Address: {company.company_emailAddress}</p>
-              <p className="card-text">Business Contacts: {company.company_phoneNumber}</p>
-              <p className="card-text">Company Location: {company.company_latitude}</p>
-              <Map destination={[company.company_latitude, company.company_longtude]}></Map>
-             </div>
-             
-    </div>
+    <>
+      <h1 className="text-center">Cars for Company</h1>
+      <div className="container mt-5 mb-4 d-flex align-items-center justify-content-center">
+        <div key={company._id} className="card mb-3">
+          <div className="card-body">
+            <h2 className="card-title">Company Name: {company.company_name}</h2>
+            <img src={company.company_images} alt={company.company_name} className="card-img-top" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <p className="card-text">Company Description: {company.company_description}</p>
+            <p className="card-text">Business Email-Address: {company.company_emailAddress}</p>
+            <p className="card-text">Business Contacts: {company.company_phoneNumber}</p>
+            <p className="card-text">Company Location: {company.company_latitude}</p>
+            <Map destination={[company.company_latitude, company.company_longtude]}></Map>
+          </div>
+        </div>
 
-        
-        
-<Link  to={`/consultation/consultationCreateForm/${company._id}`}>Add Consultation</Link> &nbsp;&nbsp;
-<Link  to={`/consultation/consultationList/${company._id}`}>Consultation List</Link>
-      
-
-        
-      </>
-
+        <Link to={`/consultation/consultationCreateForm/${company._id}`}>Add Consultation</Link> &nbsp;&nbsp;
+        <Link to={`/consultation/consultationList/${company._id}`}>Consultation List</Link>
+      </div>
+    </>
   )
-
-
-        
 }
