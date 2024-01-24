@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Axios from 'axios';
-
+import './SignInForm.css'
 
 export default function SignUpForm(props) {
 
@@ -41,39 +41,52 @@ export default function SignUpForm(props) {
 
   return (
     <div className="mx-auto p-5 d-flex justify-content-center">
-  <div className="col-md-6">
+     <div className="col-md-5">
+       <div className='card p-5' style={{ borderRadius: '15px', backgroundColor: 'white' , boxShadow: '0 0 10px rgba(0,0,0,0.1)', minWidth:'250px'}}  >
     <h1 className="text-center mb-4">Sign-Up</h1>
 
     <form onSubmit={registerHandler}>
       <div className="form-group">
         <label>Full Name</label>
-        <input type="text" name="user_fullName" onChange={handleChange} className="form-control" />
+        <input type="text" name="user_fullName" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} />
       </div>
+
+   <br></br>
 
       <div className="form-group">
         <label>Phone Number</label>
-        <input type="text" name="user_phoneNumber" onChange={handleChange} className="form-control" />
+        <input type="text" name="user_phoneNumber" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }}/>
       </div>
+
+   <br></br>
 
       <div className="form-group">
         <label>Email Address</label>
-        <input type="email" name="user_emailAddress" onChange={handleChange} className="form-control" />
+        <input type="email" name="user_emailAddress" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} />
       </div>
+
+    <br></br>
 
       <div className="form-group">
         <label>Password</label>
-        <input type="password" name="user_password" onChange={handleChange} className="form-control" style={{marginBottom: 10}}/>
+        <input type="password" name="user_password" onChange={handleChange} className="form-control" style={{marginBottom: 10 , borderRadius:'20px'}}/>
       </div>
 
-      <div className="form-group">
+    <br></br>
+
+
+      <div className="form-control">
         <label>Profile Picture:</label>
-        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleImage} style={{marginLeft: 10}}/>
+        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleImage} style={{marginLeft: 10, borderRadius:'20px'}} className='fileThings'/>
       </div>
+
+    <br></br>
 
       <div className="text-center">
         <input type="submit" value="Register" className="btn btn-secondary btn-lg" style={{marginTop: 10}} />
       </div>
     </form>
+    </div>
   </div>
 </div>
   )
