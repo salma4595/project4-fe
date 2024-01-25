@@ -248,6 +248,16 @@ function App() {
             User Profile{" "}
           </Link>{" "}
           &nbsp;
+
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/company/AddCompanyForm"
+          >
+            {" "}
+            Add Company{" "}
+          </Link>{" "}
+          &nbsp;
             <Link
             className="nav-link text-white d-inline"
             style={{ padding: 10 }}
@@ -304,6 +314,23 @@ function App() {
             <Link  className="nav-link text-white d-inline"
             style={{ padding: 10 }} to="/logout" onClick={onLogoutHandler} >
             Logout
+          </Link>{" "}
+          &nbsp;
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/consultation/consultationList/:company_id"
+          >
+            Consultation List
+          </Link>{" "} 
+          &nbsp; 
+          <Link
+            className="nav-link text-white d-inline"
+            style={{ padding: 10 }}
+            to="/company/AddCompanyForm"
+          >
+            {" "}
+            Add Company{" "}
           </Link>{" "}
           &nbsp;
           <Link
@@ -408,6 +435,20 @@ function App() {
               element={
                 currentUser?.userType === "Admin" ? (
                   <RequestList />
+
+                  
+                ) : (
+                  <HomePage />
+                )
+              }
+            />
+            <Route
+              path="/company/AddCompanyForm"
+              element={
+                currentUser?.userType === "Admin" ? (
+                  <AddCompanyForm/>
+
+                  
                 ) : (
                   <HomePage />
                 )
@@ -422,6 +463,7 @@ function App() {
               path="/user/EditProfile"
               element={<EditProfile {...currentUser} editUpdate={editUpdate} />}
             />
+            <Route path="/company/category/:id" element={<Companies />} />
             <Route
               path="/company/CompanyDetails"
               element={<CompanyDetails />}
