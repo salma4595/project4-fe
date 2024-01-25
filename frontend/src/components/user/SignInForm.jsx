@@ -20,9 +20,16 @@ export default function SignInForm(props) {
     navigate('/');
   };
 
+
+  
+
+
+
+
     return (
-      <div className="mx-auto p-5 d-flex justify-content-center" style={{backgroundImage: 'url("../../assets/chicago-booth-construction.jpg")', backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}} >
-       <div className="col-md-6">
+      <div className="background-container" style={{ backgroundColor: 'rgb(173, 216, 230)', backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh' }}>
+      <div className="mx-auto p-5 d-flex justify-content-center" style={{ backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh'}} >
+       <div className="col-md-6" style={{marginTop:'110px'}}>
         <div className="card p-5" style={{ borderRadius: '15px', backgroundColor: 'white' , boxShadow: '0 0 10px rgba(0,0,0,0.1)', minWidth:'250px'}}>
           <h1 className="text-center mb-4">Sign-In</h1>
 
@@ -66,5 +73,6 @@ export default function SignInForm(props) {
         </div>
       </div>
     </div>
+  </div> 
   );
 }
