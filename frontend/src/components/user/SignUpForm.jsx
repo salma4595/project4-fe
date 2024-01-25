@@ -40,44 +40,45 @@ export default function SignUpForm(props) {
     }
 
   return (
+    <div className='background-container'style={{ backgroundColor: 'rgb(173, 216, 230)', backgroundSize: 'cover'}}>
     <div className="mx-auto p-5 d-flex justify-content-center">
      <div className="col-md-5">
-       <div className='card p-5' style={{ borderRadius: '15px', backgroundColor: 'white' , boxShadow: '0 0 10px rgba(0,0,0,0.1)', minWidth:'250px'}}  >
+       <div className='card p-5' style={{ borderRadius: '15px', backgroundColor: 'white' , boxShadow: '0 0 10px rgba(0,0,0,0.1)', minWidth:'250px'}}   >
     <h1 className="text-center mb-4">Sign-Up</h1>
 
     <form onSubmit={registerHandler}>
       <div className="form-group">
         <label>Full Name</label>
-        <input type="text" name="user_fullName" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} />
+        <input type="text" name="user_fullName" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} placeholder='Enter name here' />
       </div>
 
    <br></br>
 
       <div className="form-group">
         <label>Phone Number</label>
-        <input type="text" name="user_phoneNumber" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }}/>
+        <input type="text" name="user_phoneNumber" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} placeholder='Enter phone number here'/>
       </div>
 
    <br></br>
 
       <div className="form-group">
         <label>Email Address</label>
-        <input type="email" name="user_emailAddress" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} />
+        <input type="email" name="user_emailAddress" onChange={handleChange} className="form-control" style={{ borderRadius: '20px' }} placeholder='Enter email here' />
       </div>
 
     <br></br>
 
       <div className="form-group">
         <label>Password</label>
-        <input type="password" name="user_password" onChange={handleChange} className="form-control" style={{marginBottom: 10 , borderRadius:'20px'}}/>
+        <input type="password" name="user_password" onChange={handleChange} className="form-control" style={{marginBottom: 10 , borderRadius:'20px'}} placeholder='Enter password here' />
       </div>
 
     <br></br>
 
 
-      <div className="form-control">
+      <div className="row d-flex justify-content-center align-items-center col-md-12" >
         <label>Profile Picture:</label>
-        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleImage} style={{marginLeft: 10, borderRadius:'20px'}} className='fileThings'/>
+        <input type="file" name="user_image" accept=".png, .jpg, .jpeg, .gif" onChange={handleImage} style={{marginLeft: 10}} className='form-control'/>
       </div>
 
     <br></br>
@@ -88,6 +89,7 @@ export default function SignUpForm(props) {
     </form>
     </div>
   </div>
+</div>
 </div>
   )
 }
