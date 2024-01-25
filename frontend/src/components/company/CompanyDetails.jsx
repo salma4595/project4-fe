@@ -4,6 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import Axios from 'axios';
 import Map from '../company/Map';
 import AddCompanyForm from '../company/AddCompanyForm';
+import EditCompany from './EditCompany'
+
 
 export default function CompanyDetailPage(props) {
   const [companyData, setCompanyData] = useState([]);
@@ -11,8 +13,12 @@ export default function CompanyDetailPage(props) {
     company_latitude:0,
     company_longtude:0
   });
+  
   const { id: companyId } = useParams();
   const navigate = useNavigate();
+  const [EditCompany, setEditCompany] = useState({});
+  const [isEdit,setIsEdit]=useState(false);
+
 
   useEffect(() => {
     // Fetch cars for the specific company
@@ -39,7 +45,35 @@ export default function CompanyDetailPage(props) {
   }, [companyId]);
   
   console.log("///", companyData);
-  
+
+  const deleteCompany=(id)=>{
+    Axios.delete(`/company/delete?id=${id}`)
+    .then(res=>{
+      console.log("company deleted");
+      console.log(res);
+      navigate('/')
+    })
+    .catch(err=>{
+      console.log("error deleting company",err);
+    })
+  }
+
+
+  // const editCompanyFun = (id) => {
+  //   Axios.get(`/company/edit?id=${id}`)
+  //     .then((res) => {
+  //       console.log('Exhibition Added successfully!!!');
+  //       setEditCompany(res.data.company)
+  //       setIsEdit(!isEdit)
+  //     })
+  //     .catch((err) => {
+  //       console.log('Error adding Exhibition');
+  //     });
+  // };
+
+  const handleEditCompany = (carId) => {
+    navigate(`/company/edit/${carId}`);
+  };
 
   return (
     <>
@@ -60,6 +94,12 @@ export default function CompanyDetailPage(props) {
         </div>
         </div>
         <div className='text-center'>
+        <button className='btn btn-danger' style={{marginRight:"5px"}} onClick={()=>deleteCompany(companyId)}>Delete Company</button>
+
+        <button className='btn btn-primary' onClick={()=>handleEditCompany(company._id)}>Edit</button>
+       
+       
+            
         <Link to={`/consultation/consultationCreateForm/${company._id}`} className='btn btn-dark mr-2'>Add Consultation</Link> &nbsp;&nbsp;
         <Link to={`/consultation/consultationList/${company._id}`} className='btn btn-dark'>Consultation List</Link>
         </div>

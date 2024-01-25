@@ -74,7 +74,9 @@ console.log(error);
 //loadQuotationList();
 //create the API for creating the Quotation
 const addQuotation = (quotation) => {
-    Axios.post("/quotation/add",quotation)
+    Axios.post("/quotation/add",quotation,{headers:{
+        "Authorization":`Bearer ${getToken()}`
+    }})
     .then(res =>{
         console.log(res);
                     console.log("Quotation Added!");
